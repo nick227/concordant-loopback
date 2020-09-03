@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {User} from './user.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'organization'}}
@@ -38,15 +39,8 @@ export class Organization extends Entity {
   })
   id: number;
 
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
+  @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
-
   // Define well-known properties here
 
   // Indexer property to allow additional data

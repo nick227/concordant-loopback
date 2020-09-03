@@ -22,3 +22,5 @@ export * from './offer-offer-comment.controller';
 export * from './grievance-comment-user.controller';
 export * from './offer-comment-user.controller';
 export * from './treaty-comment-user.controller';
+export * from './user-organization.controller';
+export * from './organization-user.controller';

@@ -17,14 +17,14 @@ treaties hasMany votes
 * VOTES
 */
 
-votes belongsTo User (creator)
+votes belongsTo user (creator)
 
 /*
 * GRIEVANCES OFFERS
 */
 
-grievances belongsTo User (creator)
-offers belongsTo User (creator)
+grievances belongsTo user (creator)
+offers belongsTo user (creator)
 
 /*
 * COMMENTS
@@ -34,9 +34,13 @@ treaty hasMany treatyComments (comments)
 grievance hasMany grievanceComments (comments)
 offer hasMany offerComments (comments)
 
-grievanceComment belongsTo User (creator)
-offerComment belongsTo User (creator)
-treatyComment belongsTo User (creator)
+grievanceComment belongsTo user (creator)
+offerComment belongsTo user (creator)
+treatyComment belongsTo user (creator)
 
+/*
+* ORGANIZATIONS
+*/
 
-
+user hasManyThrough organizations -> userToOrganization (organizations)
+organization belongsTo user (creator)
