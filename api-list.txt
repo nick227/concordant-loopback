@@ -1,0 +1,42 @@
+http://localhost:3000/treaties/1?filter[include][0][relation]=offers&filter[include][1][relation]=grievances&filter[include][2][relation]=creator&filter[include][3][relation]=votes
+
+http://localhost:3000/votes?filter[where][treaty_id]=1&filter[include][][relation]=creator
+
+----------------------------
+List of relations:
+----------------------------
+/*
+* TREATIES
+*/
+
+treaties hasMany offers
+treaties hasMany grievances
+treaties hasMany votes
+
+/*
+* VOTES
+*/
+
+votes belongsTo User (creator)
+
+/*
+* GRIEVANCES OFFERS
+*/
+
+grievances belongsTo User (creator)
+offers belongsTo User (creator)
+
+/*
+* COMMENTS
+*/
+
+treaty hasMany treatyComments (comments)
+grievance hasMany grievanceComments (comments)
+offer hasMany offerComments (comments)
+
+grievanceComment belongsTo User (creator)
+offerComment belongsTo User (creator)
+treatyComment belongsTo User (creator)
+
+
+
