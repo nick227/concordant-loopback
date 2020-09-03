@@ -2,6 +2,7 @@ import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository'
 import {Treaty, TreatyWithRelations} from './treaty.model';
 import {User} from './user.model';
 import {GrievanceComment} from './grievance-comment.model';
+import {Organization} from './organization.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'grievance'}}
@@ -41,15 +42,6 @@ export class Grievance extends Entity {
     mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   treaty_id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  organization_id: number;
   @property({
     type: 'date',
     required: true,
@@ -62,6 +54,9 @@ export class Grievance extends Entity {
 
   @hasMany(() => GrievanceComment, {keyTo: 'grievance_id'})
   comments: GrievanceComment[];
+
+  @belongsTo(() => Organization, {name: 'organization'})
+  organization_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

@@ -25,6 +25,8 @@ votes belongsTo user (creator)
 
 grievances belongsTo user (creator)
 offers belongsTo user (creator)
+grievances belongsTo organization (organization)
+offers belongsTo organization (organization)
 
 /*
 * COMMENTS
