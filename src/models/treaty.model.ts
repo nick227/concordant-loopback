@@ -28,6 +28,14 @@ export class Treaty extends Entity {
   @property({
     type: 'string',
     required: true,
+    length: 100,
+    mysql: {columnName: 'status', dataType: 'varchar', dataLength: 12, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  status: string;
+
+  @property({
+    type: 'string',
+    required: true,
     length: 65535,
     mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
