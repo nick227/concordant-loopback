@@ -1,5 +1,5 @@
-import {ApplicationConfig, Loopback4Application} from './application';
-
+import {Loopback4Application} from './application';
+import {ApplicationConfig} from '@loopback/core';
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {

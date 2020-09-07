@@ -1,7 +1,7 @@
 http://localhost:3000/treaties/1?filter[include][0][relation]=offers&filter[include][1][relation]=grievances&filter[include][2][relation]=creator&filter[include][3][relation]=votes
 
 http://localhost:3000/votes?filter[where][treaty_id]=1&filter[include][][relation]=creator
-
+http://localhost:3000/treaties/1?filter={"include": [{"relation":"creator"}, {"relation": "offers", "scope":{"include":[{"relation":"organization"}]}}, {"relation":"grievances", "scope":{"include":[{"relation":"organization"}]}}, {"relation":"votes"}]}
 ----------------------------
 List of relations:
 ----------------------------

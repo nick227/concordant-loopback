@@ -40,9 +40,9 @@ export class GrievanceComment extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     length: 255,
-    mysql: {columnName: 'media_url', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'media_url', default: '', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   media_url: string;
 

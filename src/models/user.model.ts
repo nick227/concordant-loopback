@@ -16,7 +16,8 @@ export class User extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
+    default: '',
     length: 255,
     mysql: {columnName: 'email', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
@@ -24,7 +25,26 @@ export class User extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
+    default: '',
+    length: 255,
+    mysql: {columnName: 'avatar_url', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  avatar_url: string;
+
+  @property({
+    type: 'string',
+    required: false,
+    default: '',
+    length: 17,
+    mysql: {columnName: 'facebook_uuid', dataType: 'varchar', dataLength: 17, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  facebook_uuid: string;
+
+  @property({
+    type: 'string',
+    required: false,
+    default: '',
     length: 100,
     mysql: {columnName: 'name', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
@@ -32,7 +52,8 @@ export class User extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
+    default: '',
     length: 65535,
     mysql: {columnName: 'biography', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
@@ -40,7 +61,8 @@ export class User extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
+    default: '',
     length: 32,
     mysql: {columnName: 'password', dataType: 'char', dataLength: 32, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
@@ -48,7 +70,7 @@ export class User extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     precision: 10,
     scale: 0,
     mysql: {columnName: 'type_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
@@ -56,15 +78,9 @@ export class User extends Entity {
   type_id: number;
 
   @property({
-    type: 'date',
-    required: true,
-    mysql: {columnName: 'create_date', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  create_date: string;
-
-  @property({
     type: 'string',
-    required: true,
+    required: false,
+    default: '',
     length: 255,
     mysql: {columnName: 'location', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
