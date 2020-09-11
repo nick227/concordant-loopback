@@ -33,18 +33,12 @@ export class OfferComment extends Entity {
 
   @property({
     type: 'date',
-    required: true,
-    mysql: {columnName: 'create_date', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    required: false,
+    default: '$now',
+    generated: true,
+    mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
-
-  @property({
-    type: 'string',
-    required: true,
-    length: 255,
-    mysql: {columnName: 'media_url', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  media_url: string;
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;

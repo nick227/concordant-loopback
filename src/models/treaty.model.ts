@@ -1,9 +1,10 @@
-import {Entity, model, property, hasMany, belongsTo} from '@loopback/repository';
+import {Entity, model, property, hasMany, belongsTo, hasOne} from '@loopback/repository';
 import {Grievance} from './grievance.model';
 import {Offer} from './offer.model';
 import {User} from './user.model';
 import {Vote} from './vote.model';
 import {TreatyComment} from './treaty-comment.model';
+import {Organization} from './organization.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty'}}})
 export class Treaty extends Entity {
@@ -65,6 +66,15 @@ export class Treaty extends Entity {
     mysql: {columnName: 'avatar_url', dataType: 'varchar', dataLength: 128, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   avatar_url: string;
+
+  @property({
+    type: 'date',
+    required: false,
+    default: '$now',
+    generated: true,
+    mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  create_date: string;
 
   @hasMany(() => Grievance, {keyTo: 'treaty_id'})
   grievances?: Grievance[];

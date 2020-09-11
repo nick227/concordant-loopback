@@ -42,10 +42,13 @@ export class Grievance extends Entity {
     mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   treaty_id: number;
+
   @property({
     type: 'date',
-    required: true,
-    mysql: {columnName: 'create_date', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    required: false,
+    default: '$now',
+    generated: true,
+    mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
 

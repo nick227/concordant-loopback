@@ -26,3 +26,6 @@ export * from './user-organization.controller';
 export * from './organization-user.controller';
 export * from './grievance-organization.controller';
 export * from './offer-organization.controller';
+export * from './grievance-like-user.controller';
+export * from './grievance-like.controller';
+export * from './offer-like.controller';

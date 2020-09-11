@@ -98,6 +98,7 @@ export class User extends Entity {
 
   @hasMany(() => Organization, {through: {model: () => UserToOrganization, keyFrom: 'creator_user_id', keyTo: 'organization_id'}})
   organizations: Organization[];
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

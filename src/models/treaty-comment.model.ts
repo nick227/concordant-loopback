@@ -33,8 +33,10 @@ export class TreatyComment extends Entity {
 
   @property({
     type: 'date',
-    required: true,
-    mysql: {columnName: 'create_date', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    required: false,
+    default: '$now',
+    generated: true,
+    mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
 

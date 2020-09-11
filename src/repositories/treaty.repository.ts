@@ -1,4 +1,4 @@
-import {DefaultCrudRepository, repository, HasManyRepositoryFactory, BelongsToAccessor} from '@loopback/repository';
+import {DefaultCrudRepository, repository, HasManyRepositoryFactory, BelongsToAccessor, HasOneRepositoryFactory} from '@loopback/repository';
 import {Treaty, TreatyRelations, Grievance, Offer, User, Vote, TreatyComment} from '../models';
 import {ConcordantDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';

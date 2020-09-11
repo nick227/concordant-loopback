@@ -22,6 +22,7 @@ export class GrievanceComment extends Entity {
     mysql: {columnName: 'text', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   text: string;
+  
   @property({
     type: 'number',
     required: true,

@@ -8,3 +8,5 @@ export * from './treaty.repository';
 export * from './user-to-organization.repository';
 export * from './user.repository';
 export * from './vote.repository';
+export * from './grievance-like.repository';
+export * from './offer-like.repository';

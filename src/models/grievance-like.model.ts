@@ -1,12 +1,11 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {User} from './user.model';
 
 @model({
-  settings: {
-    idInjection: false,
-    mysql: {schema: 'concordant', table: 'user_to_organization'}
-  }
+  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'grievance_like'}}
 })
-export class UserToOrganization extends Entity {
+
+export class GrievanceLike extends Entity {
   @property({
     type: 'number',
     generated: true,
@@ -20,20 +19,14 @@ export class UserToOrganization extends Entity {
   @property({
     type: 'number',
     required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  creator_user_id: number;
+  organization_id: number;
 
   @property({
     type: 'number',
     required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  organization_id: number;
+  grievance_id: number;
 
   @property({
     type: 'date',
@@ -44,19 +37,27 @@ export class UserToOrganization extends Entity {
   })
   create_date: string;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  liked: number;
+
+  @belongsTo(() => User, {name: 'creator'})
+  creator_user_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<UserToOrganization>) {
+  constructor(data?: Partial<GrievanceLike>) {
     super(data);
   }
 }
 
-export interface UserToOrganizationRelations {
+export interface GrievanceLikeRelations {
   // describe navigational properties here
 }
 
-export type UserToOrganizationWithRelations = UserToOrganization & UserToOrganizationRelations;
+export type GrievanceLikeWithRelations = GrievanceLike & GrievanceLikeRelations;

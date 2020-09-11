@@ -1,12 +1,9 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {
-    idInjection: false,
-    mysql: {schema: 'concordant', table: 'user_to_organization'}
-  }
+  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'offer_like'}}
 })
-export class UserToOrganization extends Entity {
+export class OfferLike extends Entity {
   @property({
     type: 'number',
     generated: true,
@@ -22,6 +19,15 @@ export class UserToOrganization extends Entity {
     required: true,
     precision: 10,
     scale: 0,
+    mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+  })
+  organization_id: number;
+
+  @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
     mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   creator_user_id: number;
@@ -31,9 +37,9 @@ export class UserToOrganization extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'offer_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  organization_id: number;
+  offer_id: number;
 
   @property({
     type: 'date',
@@ -44,19 +50,28 @@ export class UserToOrganization extends Entity {
   })
   create_date: string;
 
+  @property({
+    type: 'number',
+    required: true,
+    precision: 3,
+    scale: 0,
+    mysql: {columnName: 'liked', dataType: 'tinyint', dataLength: null, dataPrecision: 3, dataScale: 0, nullable: 'N'},
+  })
+  liked: number;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<UserToOrganization>) {
+  constructor(data?: Partial<OfferLike>) {
     super(data);
   }
 }
 
-export interface UserToOrganizationRelations {
+export interface OfferLikeRelations {
   // describe navigational properties here
 }
 
-export type UserToOrganizationWithRelations = UserToOrganization & UserToOrganizationRelations;
+export type OfferLikeWithRelations = OfferLike & OfferLikeRelations;

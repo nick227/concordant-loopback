@@ -1,5 +1,7 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {User} from './user.model';
+import {UserToOrganization} from './user-to-organization.model';
+import {Treaty} from './treaty.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'organization'}}
@@ -39,10 +41,20 @@ export class Organization extends Entity {
   })
   id: number;
 
+  @property({
+    type: 'date',
+    required: false,
+    default: '$now',
+    generated: true,
+    mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  create_date: string;
+
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
-  // Define well-known properties here
 
+  @hasMany(() => User, {through: {model: () => UserToOrganization, keyFrom: 'organization_id', keyTo: 'creator_user_id'}})
+  users: User[];
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
