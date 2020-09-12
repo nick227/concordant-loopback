@@ -8,6 +8,16 @@ import {Treaty} from './treaty.model';
 })
 export class Organization extends Entity {
   @property({
+    type: 'number',
+    generated: true,
+    precision: 10,
+    scale: 0,
+    id: 1,
+    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+  })
+  id: number;
+
+  @property({
     type: 'string',
     required: true,
     length: 100,
@@ -30,16 +40,6 @@ export class Organization extends Entity {
     mysql: {columnName: 'avatar_url', dataType: 'varchar', dataLength: 200, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   avatar_url: string;
-
-  @property({
-    type: 'number',
-    generated: true,
-    precision: 10,
-    scale: 0,
-    id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  id: number;
 
   @property({
     type: 'date',

@@ -78,6 +78,15 @@ export class User extends Entity {
   password: string;
 
   @property({
+    type: 'string',
+    required: false,
+    default: '',
+    length: 255,
+    mysql: {columnName: 'profile_background_url', dataType: 'char', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  profile_background_url: string;
+
+  @property({
     type: 'number',
     required: false,
     default: '',

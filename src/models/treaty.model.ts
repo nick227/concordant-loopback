@@ -42,24 +42,6 @@ export class Treaty extends Entity {
   })
   description: string;
   @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'organization_a_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  organization_a_id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'organization_b_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  organization_b_id: number;
-
-  @property({
     type: 'string',
     required: true,
     length: 255,
@@ -90,6 +72,12 @@ export class Treaty extends Entity {
 
   @hasMany(() => TreatyComment, {keyTo: 'treaty_id'})
   comments: TreatyComment[];
+
+  @belongsTo(() => Organization, {name: 'organization_a'})
+  organization_a_id: number;
+
+  @belongsTo(() => Organization, {name: 'organization_b'})
+  organization_b_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
