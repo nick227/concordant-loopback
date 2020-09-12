@@ -10,3 +10,4 @@ export * from './user-to-organization.model';
 export * from './vote.model';
 export * from './grievance-like.model';
 export * from './offer-like.model';
+export * from './treaty-rating.model';

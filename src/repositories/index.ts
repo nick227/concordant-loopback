@@ -10,3 +10,4 @@ export * from './user.repository';
 export * from './vote.repository';
 export * from './grievance-like.repository';
 export * from './offer-like.repository';
+export * from './treaty-rating.repository';

@@ -30,3 +30,4 @@ export * from './grievance-like-user.controller';
 export * from './grievance-like.controller';
 export * from './offer-like.controller';
 export * from './treaty-organization.controller';
+export * from './treaty-rating.controller';

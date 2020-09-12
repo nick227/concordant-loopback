@@ -28,7 +28,7 @@ export class Treaty extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     length: 100,
     mysql: {columnName: 'status', dataType: 'varchar', dataLength: 12, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
@@ -41,6 +41,7 @@ export class Treaty extends Entity {
     mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   description: string;
+
   @property({
     type: 'string',
     required: true,
