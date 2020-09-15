@@ -56,10 +56,6 @@ export class Organization extends Entity {
   @hasMany(() => User, {through: {model: () => UserToOrganization, keyFrom: 'organization_id', keyTo: 'creator_user_id'}})
   users: User[];
 
-  @property({
-    type: 'number',
-  })
-  creator_organization_id?: number;
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;

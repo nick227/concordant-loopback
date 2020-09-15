@@ -66,9 +66,7 @@ export class Offer extends Entity {
 
   @belongsTo(() => Organization, {name: 'organization'})
   organization_id: number;
-
-  @hasOne(() => Organization, {keyTo: 'creator_organization_id'})
-  creator_organization: Organization;
+  
   // Define well-known properties here
 
   // Indexer property to allow additional data
