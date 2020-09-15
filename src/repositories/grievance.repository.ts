@@ -1,4 +1,4 @@
-import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory} from '@loopback/repository';
+import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory, HasOneRepositoryFactory} from '@loopback/repository';
 import {Grievance, GrievanceRelations, User, GrievanceComment, Organization} from '../models';
 import {ConcordantDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
@@ -18,10 +18,14 @@ export class GrievanceRepository extends DefaultCrudRepository<
 
   public readonly organization: BelongsToAccessor<Organization, typeof Grievance.prototype.id>;
 
+  public readonly creator_organization: HasOneRepositoryFactory<Organization, typeof Grievance.prototype.id>;
+
   constructor(
     @inject('datasources.concordant') dataSource: ConcordantDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('GrievanceCommentRepository') protected grievanceCommentRepositoryGetter: Getter<GrievanceCommentRepository>, @repository.getter('OrganizationRepository') protected organizationRepositoryGetter: Getter<OrganizationRepository>,
   ) {
     super(Grievance, dataSource);
+    this.creator_organization = this.createHasOneRepositoryFactoryFor('creator_organization', organizationRepositoryGetter);
+    this.registerInclusionResolver('creator_organization', this.creator_organization.inclusionResolver);
     this.organization = this.createBelongsToAccessorFor('organization', organizationRepositoryGetter,);
     this.registerInclusionResolver('organization', this.organization.inclusionResolver);
     this.comments = this.createHasManyRepositoryFactoryFor('comments', grievanceCommentRepositoryGetter,);

@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
 import {Treaty, TreatyWithRelations} from './treaty.model';
 import {User} from './user.model';
 import {GrievanceComment} from './grievance-comment.model';
@@ -39,6 +39,15 @@ export class Grievance extends Entity {
     required: true,
     precision: 10,
     scale: 0,
+    mysql: {columnName: 'creator_organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+  })
+  creator_organization_id: number;
+
+  @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
     mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   treaty_id: number;
@@ -60,6 +69,9 @@ export class Grievance extends Entity {
 
   @belongsTo(() => Organization, {name: 'organization'})
   organization_id: number;
+
+  @hasOne(() => Organization, {keyTo: 'creator_organization_id'})
+  creator_organization: Organization;
   // Define well-known properties here
 
   // Indexer property to allow additional data

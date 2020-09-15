@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
 import {User} from './user.model';
 import {OfferComment} from './offer-comment.model';
 import {Organization} from './organization.model';
@@ -41,6 +41,15 @@ export class Offer extends Entity {
   treaty_id: number;
 
   @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'creator_organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+  })
+  creator_organization_id: number;
+
+  @property({
     type: 'date',
     required: false,
     default: '$now',
@@ -57,6 +66,9 @@ export class Offer extends Entity {
 
   @belongsTo(() => Organization, {name: 'organization'})
   organization_id: number;
+
+  @hasOne(() => Organization, {keyTo: 'creator_organization_id'})
+  creator_organization: Organization;
   // Define well-known properties here
 
   // Indexer property to allow additional data

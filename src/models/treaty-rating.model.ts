@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {User} from './user.model';
+import {Organization} from './organization.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty_rating'}}
@@ -28,15 +30,6 @@ export class TreatyRating extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  creator_user_id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
     mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   treaty_id: number;
@@ -49,6 +42,12 @@ export class TreatyRating extends Entity {
     mysql: {columnName: 'value', dataType: 'tinyint', dataLength: null, dataPrecision: 3, dataScale: 0, nullable: 'N'},
   })
   value: number;
+
+  @belongsTo(() => User, {name: 'creator'})
+  creator_user_id: number;
+
+  @belongsTo(() => Organization, {name: 'organization'})
+  organization_id: number;
 
   // Define well-known properties here
 

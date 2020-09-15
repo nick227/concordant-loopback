@@ -1,5 +1,6 @@
 import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {User} from './user.model';
+import {Organization} from './organization.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'vote'}}})
 export class Vote extends Entity {
@@ -12,6 +13,7 @@ export class Vote extends Entity {
     mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   id: number;
+
   @property({
     type: 'number',
     required: true,
@@ -21,6 +23,15 @@ export class Vote extends Entity {
   })
   treaty_id: number;
 
+  @property({
+    type: 'date',
+    required: false,
+    default: '$now',
+    generated: true,
+    mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  create_date: string;
+  
   @property({
     type: 'number',
     required: true,
@@ -32,6 +43,9 @@ export class Vote extends Entity {
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @belongsTo(() => Organization, {name: 'organization'})
+  organization_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
