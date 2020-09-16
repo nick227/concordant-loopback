@@ -14,3 +14,4 @@ export * from './treaty-rating.model';
 export * from './treaty-provision.model';
 export * from './provision-comment.model';
 export * from './provision-like.model';
+export * from './provision-status.model';

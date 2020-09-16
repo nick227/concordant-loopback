@@ -35,3 +35,4 @@ export * from './vote-organization.controller';
 export * from './treaty-provision.controller';
 export * from './provision-comment.controller';
 export * from './provision-like.controller';
+export * from './provision-status.controller';

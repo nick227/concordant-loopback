@@ -42,12 +42,13 @@ export class TreatyProvision extends Entity {
   create_date: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
-    length: 16,
-    mysql: {columnName: 'status', dataType: 'varchar', dataLength: 16, dataPrecision: null, dataScale: null, nullable: 'N'},
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'status', dataType: 'int', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  status: string;
+  status_id: number;
 
   @property({
     type: 'string',
