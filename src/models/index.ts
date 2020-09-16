@@ -12,3 +12,5 @@ export * from './grievance-like.model';
 export * from './offer-like.model';
 export * from './treaty-rating.model';
 export * from './treaty-provision.model';
+export * from './provision-comment.model';
+export * from './provision-like.model';

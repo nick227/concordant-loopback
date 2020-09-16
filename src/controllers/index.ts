@@ -33,3 +33,5 @@ export * from './treaty-organization.controller';
 export * from './treaty-rating.controller';
 export * from './vote-organization.controller';
 export * from './treaty-provision.controller';
+export * from './provision-comment.controller';
+export * from './provision-like.controller';
