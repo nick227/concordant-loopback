@@ -36,3 +36,5 @@ export * from './treaty-provision.controller';
 export * from './provision-comment.controller';
 export * from './provision-like.controller';
 export * from './provision-status.controller';
+export * from './treaty-provision-provision-comment.controller';
+export * from './treaty-provision-provision-like.controller';

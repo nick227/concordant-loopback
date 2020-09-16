@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {ProvisionComment} from './provision-comment.model';
+import {ProvisionLike} from './provision-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty_provision'}}
@@ -46,7 +48,7 @@ export class TreatyProvision extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'status', dataType: 'int', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'status_id', dataType: 'int', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   status_id: number;
 
@@ -67,13 +69,18 @@ export class TreatyProvision extends Entity {
   description: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
-    length: 8,
-    mysql: {columnName: 'position', dataType: 'varchar', dataLength: 8, dataPrecision: null, dataScale: null, nullable: 'N'},
+    length: 6,
+    mysql: {columnName: 'position', dataType: 'smallint', dataLength: 6, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  position: string;
+  position: number;
 
+  @hasMany(() => ProvisionComment, {keyTo: 'provision_id'})
+  comments: ProvisionComment[];
+
+  @hasMany(() => ProvisionLike, {keyTo: 'provision_id'})
+  likes: ProvisionLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
