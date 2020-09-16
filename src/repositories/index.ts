@@ -11,3 +11,4 @@ export * from './vote.repository';
 export * from './grievance-like.repository';
 export * from './offer-like.repository';
 export * from './treaty-rating.repository';
+export * from './treaty-provision.repository';
