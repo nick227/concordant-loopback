@@ -16,20 +16,20 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {
-  Treaty,
+  Conflict,
   Grievance,
 } from '../models';
-import {TreatyRepository} from '../repositories';
+import {ConflictRepository} from '../repositories';
 
-export class TreatyGrievanceController {
+export class ConflictGrievanceController {
   constructor(
-    @repository(TreatyRepository) protected treatyRepository: TreatyRepository,
+    @repository(ConflictRepository) protected conflictRepository: ConflictRepository,
   ) { }
 
-  @get('/treaties/{id}/grievances', {
+  @get('/conflicts/{id}/grievances', {
     responses: {
       '200': {
-        description: 'Array of Treaty has many Grievance',
+        description: 'Array of Conflict has many Grievance',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Grievance)},
@@ -42,38 +42,38 @@ export class TreatyGrievanceController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Grievance>,
   ): Promise<Grievance[]> {
-    return this.treatyRepository.grievances(id).find(filter);
+    return this.conflictRepository.grievances(id).find(filter);
   }
 
-  @post('/treaties/{id}/grievances', {
+  @post('/conflicts/{id}/grievances', {
     responses: {
       '200': {
-        description: 'Treaty model instance',
+        description: 'Conflict model instance',
         content: {'application/json': {schema: getModelSchemaRef(Grievance)}},
       },
     },
   })
   async create(
-    @param.path.number('id') id: typeof Treaty.prototype.id,
+    @param.path.number('id') id: typeof Conflict.prototype.id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(Grievance, {
-            title: 'NewGrievanceInTreaty',
+            title: 'NewGrievanceInConflict',
             exclude: ['id'],
-            optional: ['treatyId']
+            optional: ['conflict_id']
           }),
         },
       },
     }) grievance: Omit<Grievance, 'id'>,
   ): Promise<Grievance> {
-    return this.treatyRepository.grievances(id).create(grievance);
+    return this.conflictRepository.grievances(id).create(grievance);
   }
 
-  @patch('/treaties/{id}/grievances', {
+  @patch('/conflicts/{id}/grievances', {
     responses: {
       '200': {
-        description: 'Treaty.Grievance PATCH success count',
+        description: 'Conflict.Grievance PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -90,13 +90,13 @@ export class TreatyGrievanceController {
     grievance: Partial<Grievance>,
     @param.query.object('where', getWhereSchemaFor(Grievance)) where?: Where<Grievance>,
   ): Promise<Count> {
-    return this.treatyRepository.grievances(id).patch(grievance, where);
+    return this.conflictRepository.grievances(id).patch(grievance, where);
   }
 
-  @del('/treaties/{id}/grievances', {
+  @del('/conflicts/{id}/grievances', {
     responses: {
       '200': {
-        description: 'Treaty.Grievance DELETE success count',
+        description: 'Conflict.Grievance DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -105,6 +105,6 @@ export class TreatyGrievanceController {
     @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Grievance)) where?: Where<Grievance>,
   ): Promise<Count> {
-    return this.treatyRepository.grievances(id).delete(where);
+    return this.conflictRepository.grievances(id).delete(where);
   }
 }

@@ -16,20 +16,20 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {
-  Treaty,
+  Conflict,
   Offer,
 } from '../models';
-import {TreatyRepository} from '../repositories';
+import {ConflictRepository} from '../repositories';
 
-export class TreatyOfferController {
+export class ConflictOfferController {
   constructor(
-    @repository(TreatyRepository) protected treatyRepository: TreatyRepository,
+    @repository(ConflictRepository) protected conflictRepository: ConflictRepository,
   ) { }
 
-  @get('/treaties/{id}/offers', {
+  @get('/conflicts/{id}/offers', {
     responses: {
       '200': {
-        description: 'Array of Treaty has many Offer',
+        description: 'Array of Conflict has many Offer',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Offer)},
@@ -42,38 +42,38 @@ export class TreatyOfferController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<Offer>,
   ): Promise<Offer[]> {
-    return this.treatyRepository.offers(id).find(filter);
+    return this.conflictRepository.offers(id).find(filter);
   }
 
-  @post('/treaties/{id}/offers', {
+  @post('/conflicts/{id}/offers', {
     responses: {
       '200': {
-        description: 'Treaty model instance',
+        description: 'Conflict model instance',
         content: {'application/json': {schema: getModelSchemaRef(Offer)}},
       },
     },
   })
   async create(
-    @param.path.number('id') id: typeof Treaty.prototype.id,
+    @param.path.number('id') id: typeof Conflict.prototype.id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(Offer, {
-            title: 'NewOfferInTreaty',
+            title: 'NewOfferInConflict',
             exclude: ['id'],
-            optional: ['treaty_id']
+            optional: ['conflict_id']
           }),
         },
       },
     }) offer: Omit<Offer, 'id'>,
   ): Promise<Offer> {
-    return this.treatyRepository.offers(id).create(offer);
+    return this.conflictRepository.offers(id).create(offer);
   }
 
-  @patch('/treaties/{id}/offers', {
+  @patch('/conflicts/{id}/offers', {
     responses: {
       '200': {
-        description: 'Treaty.Offer PATCH success count',
+        description: 'Conflict.Offer PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -90,13 +90,13 @@ export class TreatyOfferController {
     offer: Partial<Offer>,
     @param.query.object('where', getWhereSchemaFor(Offer)) where?: Where<Offer>,
   ): Promise<Count> {
-    return this.treatyRepository.offers(id).patch(offer, where);
+    return this.conflictRepository.offers(id).patch(offer, where);
   }
 
-  @del('/treaties/{id}/offers', {
+  @del('/conflicts/{id}/offers', {
     responses: {
       '200': {
-        description: 'Treaty.Offer DELETE success count',
+        description: 'Conflict.Offer DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -105,6 +105,6 @@ export class TreatyOfferController {
     @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(Offer)) where?: Where<Offer>,
   ): Promise<Count> {
-    return this.treatyRepository.offers(id).delete(where);
+    return this.conflictRepository.offers(id).delete(where);
   }
 }

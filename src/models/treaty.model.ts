@@ -1,10 +1,10 @@
-import {Entity, model, property, hasMany, belongsTo, hasOne} from '@loopback/repository';
-import {Grievance} from './grievance.model';
-import {Offer} from './offer.model';
+import {Entity, model, property, hasMany, belongsTo} from '@loopback/repository';
 import {User} from './user.model';
 import {Vote} from './vote.model';
 import {TreatyComment} from './treaty-comment.model';
 import {Organization} from './organization.model';
+import {Conflict} from './conflict.model';
+import {TreatyStatus} from './treaty-status.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty'}}})
 export class Treaty extends Entity {
@@ -25,15 +25,6 @@ export class Treaty extends Entity {
     mysql: {columnName: 'name', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   name: string;
-
-  @property({
-    type: 'string',
-    required: false,
-    length: 100,
-    mysql: {columnName: 'status', dataType: 'varchar', dataLength: 12, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  status: string;
-
   @property({
     type: 'string',
     required: true,
@@ -59,14 +50,11 @@ export class Treaty extends Entity {
   })
   create_date: string;
 
-  @hasMany(() => Grievance, {keyTo: 'treaty_id'})
-  grievances?: Grievance[];
-
-  @hasMany(() => Offer, {keyTo: 'treaty_id'})
-  offers: Offer[];
-
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @belongsTo(() => Organization, {name: 'organization'})
+  organization_id: number;
 
   @hasMany(() => Vote, {keyTo: 'treaty_id'})
   votes: Vote[];
@@ -74,11 +62,11 @@ export class Treaty extends Entity {
   @hasMany(() => TreatyComment, {keyTo: 'treaty_id'})
   comments: TreatyComment[];
 
-  @belongsTo(() => Organization, {name: 'organization_a'})
-  organization_a_id: number;
+  @belongsTo(() => Conflict, {name: 'conflict'})
+  conflict_id: number;
 
-  @belongsTo(() => Organization, {name: 'organization_b'})
-  organization_b_id: number;
+  @belongsTo(() => TreatyStatus, {name: 'status'})
+  status_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

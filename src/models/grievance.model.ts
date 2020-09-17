@@ -1,5 +1,5 @@
 import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
-import {Treaty, TreatyWithRelations} from './treaty.model';
+import {Conflict, ConflictWithRelations} from './conflict.model';
 import {User} from './user.model';
 import {GrievanceComment} from './grievance-comment.model';
 import {Organization} from './organization.model';
@@ -48,9 +48,9 @@ export class Grievance extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'conflict_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  treaty_id: number;
+  conflict_id: number;
 
   @property({
     type: 'date',

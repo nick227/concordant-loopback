@@ -36,9 +36,9 @@ export class Offer extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'conflict_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  treaty_id: number;
+  conflict_id: number;
 
   @property({
     type: 'number',

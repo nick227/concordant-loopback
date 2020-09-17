@@ -8,31 +8,31 @@ import {
 } from '@loopback/rest';
 import {
   Treaty,
-  Organization,
+  TreatyStatus,
 } from '../models';
 import {TreatyRepository} from '../repositories';
 
-export class TreatyOrganizationController {
+export class TreatyTreatyStatusController {
   constructor(
     @repository(TreatyRepository)
     public treatyRepository: TreatyRepository,
   ) { }
 
-  @get('/treaties/{id}/organization', {
+  @get('/treaties/{id}/treaty-status', {
     responses: {
       '200': {
-        description: 'Organization belonging to Treaty',
+        description: 'TreatyStatus belonging to Treaty',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(Organization)},
+            schema: {type: 'array', items: getModelSchemaRef(TreatyStatus)},
           },
         },
       },
     },
   })
-  async getOrganization(
+  async getTreatyStatus(
     @param.path.number('id') id: typeof Treaty.prototype.id,
-  ): Promise<Organization> {
-    return this.treatyRepository.organization(id);
+  ): Promise<TreatyStatus> {
+    return this.treatyRepository.status(id);
   }
 }

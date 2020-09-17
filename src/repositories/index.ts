@@ -15,3 +15,5 @@ export * from './treaty-provision.repository';
 export * from './provision-comment.repository';
 export * from './provision-like.repository';
 export * from './provision-status.repository';
+export * from './conflict.repository';
+export * from './treaty-status.repository';

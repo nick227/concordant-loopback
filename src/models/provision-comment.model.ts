@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {User} from './user.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'provision_comment'}}
@@ -21,16 +22,6 @@ export class ProvisionComment extends Entity {
     mysql: {columnName: 'text', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   text: string;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  creator_user_id: number;
-
   @property({
     type: 'number',
     required: true,
@@ -49,6 +40,8 @@ export class ProvisionComment extends Entity {
   })
   create_date: string;
 
+  @belongsTo(() => User, {name: 'creator'})
+  creator_user_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
