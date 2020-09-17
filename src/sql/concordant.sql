@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 15, 2020 at 08:27 AM
+-- Generation Time: Sep 17, 2020 at 11:33 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -25,6 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `conflict`
+--
+
+DROP TABLE IF EXISTS `conflict`;
+CREATE TABLE IF NOT EXISTS `conflict` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `avatar_url` varchar(255) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `organization_a_id` int(11) NOT NULL,
+  `organization_b_id` int(11) NOT NULL,
+  `creator_user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `organization_a_id` (`organization_a_id`),
+  KEY `organization_b_id` (`organization_b_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `conflict`
+--
+
+INSERT INTO `conflict` (`id`, `name`, `description`, `avatar_url`, `create_date`, `organization_a_id`, `organization_b_id`, `creator_user_id`) VALUES
+(2, 'Politics', 'get reeee', 'https://images.unsplash.com/photo-1506886009355-7f3af05dd5d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', '2020-09-17 06:06:12', 2, 1, 56);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `grievance`
 --
 
@@ -33,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `grievance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `treaty_id` int(11) NOT NULL,
+  `conflict_id` int(11) NOT NULL,
   `organization_id` int(11) NOT NULL,
   `creator_user_id` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
@@ -41,9 +70,17 @@ CREATE TABLE IF NOT EXISTS `grievance` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `organization_id` (`organization_id`),
-  KEY `treaty_id` (`treaty_id`),
-  KEY `user_organization_id` (`creator_organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+  KEY `user_organization_id` (`creator_organization_id`),
+  KEY `grievance_ibfk_3` (`conflict_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `grievance`
+--
+
+INSERT INTO `grievance` (`id`, `title`, `description`, `conflict_id`, `organization_id`, `creator_user_id`, `create_date`, `creator_organization_id`) VALUES
+(29, 'f sdfsdfsdfvf sdfsdfsdff sdfsdfsdf', 'f sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdf', 2, 1, 56, '2020-09-14 00:00:00', 1),
+(30, 'csc', 'scsc', 2, 1, 56, '2020-09-17 03:47:44', 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +98,14 @@ CREATE TABLE IF NOT EXISTS `grievance_comment` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `grievance_id` (`grievance_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `grievance_comment`
+--
+
+INSERT INTO `grievance_comment` (`id`, `text`, `creator_user_id`, `grievance_id`, `create_date`) VALUES
+(20, 'fsf', 56, 30, '2020-09-17 08:48:13');
 
 -- --------------------------------------------------------
 
@@ -82,7 +126,14 @@ CREATE TABLE IF NOT EXISTS `grievance_like` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `grievance_id` (`grievance_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `grievance_like`
+--
+
+INSERT INTO `grievance_like` (`id`, `organization_id`, `creator_user_id`, `grievance_id`, `create_date`, `liked`) VALUES
+(41, 1, 56, 30, '2020-09-17 08:47:56', 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `offer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `treaty_id` int(11) NOT NULL,
+  `conflict_id` int(11) NOT NULL,
   `organization_id` int(11) NOT NULL,
   `creator_user_id` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
@@ -103,9 +154,16 @@ CREATE TABLE IF NOT EXISTS `offer` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `organization_id` (`organization_id`),
-  KEY `treaty_id` (`treaty_id`),
-  KEY `creator_organization_id` (`creator_organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  KEY `creator_organization_id` (`creator_organization_id`),
+  KEY `offer_ibfk_3` (`conflict_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offer`
+--
+
+INSERT INTO `offer` (`id`, `title`, `description`, `conflict_id`, `organization_id`, `creator_user_id`, `create_date`, `creator_organization_id`) VALUES
+(13, 'fadsfr3r', 'fsr3r', 2, 2, 56, '2020-09-17 04:12:14', 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +200,15 @@ CREATE TABLE IF NOT EXISTS `offer_like` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `offer_id` (`offer_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offer_like`
+--
+
+INSERT INTO `offer_like` (`id`, `organization_id`, `creator_user_id`, `offer_id`, `create_date`, `liked`) VALUES
+(10, 2, 56, 13, '2020-09-17 09:14:17', 1),
+(11, 2, 56, 13, '2020-09-17 09:14:17', 1);
 
 -- --------------------------------------------------------
 
@@ -179,6 +245,74 @@ INSERT INTO `organization` (`name`, `description`, `avatar_url`, `id`, `creator_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `provision_comment`
+--
+
+DROP TABLE IF EXISTS `provision_comment`;
+CREATE TABLE IF NOT EXISTS `provision_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `creator_user_id` int(11) NOT NULL,
+  `provision_id` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `provision_id` (`provision_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `provision_like`
+--
+
+DROP TABLE IF EXISTS `provision_like`;
+CREATE TABLE IF NOT EXISTS `provision_like` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `organization_id` int(11) NOT NULL,
+  `creator_user_id` int(11) NOT NULL,
+  `provision_id` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `liked` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`,`organization_id`,`creator_user_id`,`provision_id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `provision_id` (`provision_id`),
+  KEY `organization_id` (`organization_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `provision_like`
+--
+
+INSERT INTO `provision_like` (`id`, `organization_id`, `creator_user_id`, `provision_id`, `create_date`, `liked`) VALUES
+(4, 2, 56, 13, '2020-09-17 15:56:03', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `provision_status`
+--
+
+DROP TABLE IF EXISTS `provision_status`;
+CREATE TABLE IF NOT EXISTS `provision_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `provision_status`
+--
+
+INSERT INTO `provision_status` (`id`, `name`) VALUES
+(1, 'proposal'),
+(2, 'pending'),
+(3, 'approved');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `treaty`
 --
 
@@ -188,30 +322,23 @@ CREATE TABLE IF NOT EXISTS `treaty` (
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `creator_user_id` int(11) NOT NULL,
-  `organization_a_id` int(11) NOT NULL,
-  `organization_b_id` int(11) NOT NULL,
+  `organization_id` int(11) NOT NULL,
+  `conflict_id` int(11) NOT NULL,
   `avatar_url` varchar(255) NOT NULL,
-  `status` varchar(12) NOT NULL,
+  `status_id` int(11) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
-  KEY `organization_a_id` (`organization_a_id`),
-  KEY `organization_b_id` (`organization_b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  KEY `organization_id` (`organization_id`),
+  KEY `status_id` (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `treaty`
 --
 
-INSERT INTO `treaty` (`id`, `name`, `description`, `creator_user_id`, `organization_a_id`, `organization_b_id`, `avatar_url`, `status`, `create_date`) VALUES
-(1, 'American politics', 'chill libs and cons', 1, 1, 2, 'https://images.unsplash.com/photo-1460342892743-8889b6be3a99?ixlib=rb-1.2.1&auto=format&fit=crop&w=1346&q=80', 'pending', '2020-09-09 22:27:52'),
-(2, 'Men and Women', 'ladies and dudes okay Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, 5, 6, 'https://images.unsplash.com/photo-1548716188-9b0867f0d1c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80', 'pending', '2020-09-12 09:41:16'),
-(3, 'haha', 'sss', 1, 1, 2, 'https://images.unsplash.com/photo-1599305364596-d6f633f8342a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80', 'eee', '2020-09-09 22:27:52'),
-(5, 'test 3', 'teae', 4, 1, 8, 'https://images.unsplash.com/photo-1599664061973-23e9ba37bf8d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', 'pending', '2020-09-10 06:54:23'),
-(6, 'adsf', 'dsaf', 4, 9, 8, 'https://images.unsplash.com/photo-1599427724440-3df71e59541e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80', 'pending', '2020-09-10 10:39:43'),
-(7, 'zebras', 'moo', 4, 9, 6, 'https://images.unsplash.com/photo-1501706362039-c06b2d715385?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=835&q=80', 'pending', '2020-09-10 10:42:27'),
-(8, 'Necklacesdsdf', 'neat', 4, 9, 8, 'https://images.unsplash.com/photo-1599525085632-c07e0a545b3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=687&q=80', 'pending', '2020-09-12 08:28:12'),
-(9, '23r3rr', 'sf', 4, 10, 5, 'https://images.unsplash.com/photo-1599839619722-39751411ea63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=635&q=80', 'pending', '2020-09-12 08:34:32');
+INSERT INTO `treaty` (`id`, `name`, `description`, `creator_user_id`, `organization_id`, `conflict_id`, `avatar_url`, `status_id`, `create_date`) VALUES
+(12, 'asdf asdfads', 'a fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa ds', 56, 2, 2, 'https://images.unsplash.com/photo-1600277971170-8a7d75fb1bd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80', 1, '2020-09-17 08:45:22');
 
 -- --------------------------------------------------------
 
@@ -235,6 +362,36 @@ CREATE TABLE IF NOT EXISTS `treaty_comment` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `treaty_provision`
+--
+
+DROP TABLE IF EXISTS `treaty_provision`;
+CREATE TABLE IF NOT EXISTS `treaty_provision` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `treaty_id` int(11) NOT NULL,
+  `creator_user_id` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `position` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `treaty_id` (`treaty_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `treaty_provision`
+--
+
+INSERT INTO `treaty_provision` (`id`, `treaty_id`, `creator_user_id`, `create_date`, `status_id`, `title`, `description`, `position`) VALUES
+(12, 12, 56, '2020-09-17 09:54:02', 1, '11111 faew fawefaewf', 'faew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewf', 1),
+(13, 12, 56, '2020-09-17 09:54:02', 1, '0000 jtyjn tn ntnt', 'jtyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntntj tyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntntjtyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntntjtyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntnt', 0),
+(14, 12, 56, '2020-09-17 15:55:59', 1, 'fsadf adsf', 'asdf adf', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `treaty_rating`
 --
 
@@ -250,25 +407,30 @@ CREATE TABLE IF NOT EXISTS `treaty_rating` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `treaty_rating`
+-- Table structure for table `treaty_status`
 --
 
-INSERT INTO `treaty_rating` (`id`, `create_date`, `creator_user_id`, `treaty_id`, `value`, `organization_id`) VALUES
-(2, '2020-09-14 12:02:38', 4, 2, 2, 5),
-(3, '2020-09-14 12:03:10', 4, 2, 5, 5),
-(4, '2020-09-14 12:20:39', 4, 2, 3, 5),
-(5, '2020-09-14 13:18:48', 4, 2, 4, 5),
-(6, '2020-09-14 13:19:14', 4, 2, 1, 5),
-(7, '2020-09-14 13:19:50', 4, 2, 1, 5),
-(8, '2020-09-15 05:13:21', 56, 1, 4, 1),
-(9, '2020-09-15 10:31:15', 56, 1, 3, 1),
-(10, '2020-09-15 10:31:47', 56, 1, 1, 1),
-(11, '2020-09-15 10:32:11', 56, 1, 5, 1),
-(12, '2020-09-15 10:32:57', 56, 1, 4, 1),
-(13, '2020-09-15 10:34:39', 56, 1, 1, 1);
+DROP TABLE IF EXISTS `treaty_status`;
+CREATE TABLE IF NOT EXISTS `treaty_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `treaty_status`
+--
+
+INSERT INTO `treaty_status` (`id`, `name`) VALUES
+(1, 'proposal'),
+(2, 'pending'),
+(3, 'accepted'),
+(4, 'conflicted');
 
 -- --------------------------------------------------------
 
@@ -351,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `user_to_organization` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_to_organization`
@@ -360,9 +522,9 @@ CREATE TABLE IF NOT EXISTS `user_to_organization` (
 INSERT INTO `user_to_organization` (`id`, `creator_user_id`, `organization_id`, `create_date`) VALUES
 (14, 4, 5, '2020-09-09 21:24:25'),
 (22, 6, 2, '2020-07-14 00:00:00'),
-(42, 56, 10, '2020-09-14 09:36:48'),
 (44, 56, 1, '2020-09-15 00:11:17'),
-(45, 56, 5, '2020-09-15 07:05:50');
+(45, 56, 5, '2020-09-15 07:05:50'),
+(46, 56, 10, '2020-09-15 09:21:39');
 
 -- --------------------------------------------------------
 
@@ -382,21 +544,26 @@ CREATE TABLE IF NOT EXISTS `vote` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vote`
 --
 
 INSERT INTO `vote` (`id`, `creator_user_id`, `treaty_id`, `organization_id`, `vote_type`, `create_date`) VALUES
-(7, 4, 2, 5, 1, '2020-09-14 06:33:24'),
-(8, 4, 2, 5, 0, '2020-09-14 06:54:28'),
-(9, 4, 2, 5, 0, '2020-09-14 08:02:38'),
-(10, 4, 2, 5, 0, '2020-09-14 13:18:41');
+(11, 56, 12, 2, 1, '2020-09-17 16:32:07');
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `conflict`
+--
+ALTER TABLE `conflict`
+  ADD CONSTRAINT `conflict_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `conflict_ibfk_2` FOREIGN KEY (`organization_a_id`) REFERENCES `organization` (`id`),
+  ADD CONSTRAINT `conflict_ibfk_3` FOREIGN KEY (`organization_b_id`) REFERENCES `organization` (`id`);
 
 --
 -- Constraints for table `grievance`
@@ -404,7 +571,7 @@ INSERT INTO `vote` (`id`, `creator_user_id`, `treaty_id`, `organization_id`, `vo
 ALTER TABLE `grievance`
   ADD CONSTRAINT `grievance_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `grievance_ibfk_2` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`),
-  ADD CONSTRAINT `grievance_ibfk_3` FOREIGN KEY (`treaty_id`) REFERENCES `treaty` (`id`),
+  ADD CONSTRAINT `grievance_ibfk_3` FOREIGN KEY (`conflict_id`) REFERENCES `conflict` (`id`),
   ADD CONSTRAINT `grievance_ibfk_4` FOREIGN KEY (`creator_organization_id`) REFERENCES `organization` (`id`);
 
 --
@@ -428,7 +595,7 @@ ALTER TABLE `grievance_like`
 ALTER TABLE `offer`
   ADD CONSTRAINT `offer_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `offer_ibfk_2` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`),
-  ADD CONSTRAINT `offer_ibfk_3` FOREIGN KEY (`treaty_id`) REFERENCES `treaty` (`id`),
+  ADD CONSTRAINT `offer_ibfk_3` FOREIGN KEY (`conflict_id`) REFERENCES `conflict` (`id`),
   ADD CONSTRAINT `offer_ibfk_4` FOREIGN KEY (`creator_organization_id`) REFERENCES `organization` (`id`);
 
 --
@@ -452,12 +619,27 @@ ALTER TABLE `organization`
   ADD CONSTRAINT `organization_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`);
 
 --
+-- Constraints for table `provision_comment`
+--
+ALTER TABLE `provision_comment`
+  ADD CONSTRAINT `provision_comment_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `provision_comment_ibfk_2` FOREIGN KEY (`provision_id`) REFERENCES `treaty_provision` (`id`);
+
+--
+-- Constraints for table `provision_like`
+--
+ALTER TABLE `provision_like`
+  ADD CONSTRAINT `provision_like_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `provision_like_ibfk_2` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`),
+  ADD CONSTRAINT `provision_like_ibfk_3` FOREIGN KEY (`provision_id`) REFERENCES `treaty_provision` (`id`);
+
+--
 -- Constraints for table `treaty`
 --
 ALTER TABLE `treaty`
   ADD CONSTRAINT `treaty_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `treaty_ibfk_2` FOREIGN KEY (`organization_a_id`) REFERENCES `organization` (`id`),
-  ADD CONSTRAINT `treaty_ibfk_3` FOREIGN KEY (`organization_b_id`) REFERENCES `organization` (`id`);
+  ADD CONSTRAINT `treaty_ibfk_2` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`),
+  ADD CONSTRAINT `treaty_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `treaty_status` (`id`);
 
 --
 -- Constraints for table `treaty_comment`
@@ -465,6 +647,13 @@ ALTER TABLE `treaty`
 ALTER TABLE `treaty_comment`
   ADD CONSTRAINT `treaty_comment_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `treaty_comment_ibfk_2` FOREIGN KEY (`treaty_id`) REFERENCES `treaty` (`id`);
+
+--
+-- Constraints for table `treaty_provision`
+--
+ALTER TABLE `treaty_provision`
+  ADD CONSTRAINT `treaty_provision_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `treaty_provision_ibfk_2` FOREIGN KEY (`treaty_id`) REFERENCES `treaty` (`id`);
 
 --
 -- Constraints for table `treaty_rating`
