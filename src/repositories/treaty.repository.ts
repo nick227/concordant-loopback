@@ -1,5 +1,5 @@
 import {DefaultCrudRepository, repository, HasManyRepositoryFactory, BelongsToAccessor, HasOneRepositoryFactory} from '@loopback/repository';
-import {Treaty, TreatyRelations, Grievance, Offer, User, Vote, TreatyComment, Organization, Conflict, TreatyStatus} from '../models';
+import {Treaty, TreatyRelations, Grievance, Offer, User, Vote, TreatyComment, Organization, Conflict, TreatyStatus, TreatyRating} from '../models';
 import {ConcordantDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {GrievanceRepository} from './grievance.repository';
@@ -10,6 +10,7 @@ import {TreatyCommentRepository} from './treaty-comment.repository';
 import {OrganizationRepository} from './organization.repository';
 import {ConflictRepository} from './conflict.repository';
 import {TreatyStatusRepository} from './treaty-status.repository';
+import {TreatyRatingRepository} from './treaty-rating.repository';
 
 export class TreatyRepository extends DefaultCrudRepository<
   Treaty,
@@ -29,10 +30,14 @@ export class TreatyRepository extends DefaultCrudRepository<
 
   public readonly status: BelongsToAccessor<TreatyStatus, typeof Treaty.prototype.id>;
 
+  public readonly ratings: HasManyRepositoryFactory<TreatyRating, typeof Treaty.prototype.id>;
+
   constructor(
-    @inject('datasources.concordant') dataSource: ConcordantDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('VoteRepository') protected voteRepositoryGetter: Getter<VoteRepository>, @repository.getter('TreatyCommentRepository') protected treatyCommentRepositoryGetter: Getter<TreatyCommentRepository>, @repository.getter('OrganizationRepository') protected organizationRepositoryGetter: Getter<OrganizationRepository>, @repository.getter('ConflictRepository') protected conflictRepositoryGetter: Getter<ConflictRepository>, @repository.getter('TreatyStatusRepository') protected treatyStatusRepositoryGetter: Getter<TreatyStatusRepository>,
+    @inject('datasources.concordant') dataSource: ConcordantDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('VoteRepository') protected voteRepositoryGetter: Getter<VoteRepository>, @repository.getter('TreatyCommentRepository') protected treatyCommentRepositoryGetter: Getter<TreatyCommentRepository>, @repository.getter('OrganizationRepository') protected organizationRepositoryGetter: Getter<OrganizationRepository>, @repository.getter('ConflictRepository') protected conflictRepositoryGetter: Getter<ConflictRepository>, @repository.getter('TreatyStatusRepository') protected treatyStatusRepositoryGetter: Getter<TreatyStatusRepository>, @repository.getter('TreatyRatingRepository') protected treatyRatingRepositoryGetter: Getter<TreatyRatingRepository>,
   ) {
     super(Treaty, dataSource);
+    this.ratings = this.createHasManyRepositoryFactoryFor('ratings', treatyRatingRepositoryGetter,);
+    this.registerInclusionResolver('ratings', this.ratings.inclusionResolver);
     this.status = this.createBelongsToAccessorFor('status', treatyStatusRepositoryGetter,);
     this.registerInclusionResolver('status', this.status.inclusionResolver);
     this.conflict = this.createBelongsToAccessorFor('conflict', conflictRepositoryGetter,);

@@ -51,3 +51,4 @@ export * from './user-user-comment.controller';
 export * from './user-message.controller';
 export * from './user-user-message.controller';
 export * from './user-message-user.controller';
+export * from './treaty-treaty-rating.controller';
