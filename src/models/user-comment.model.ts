@@ -2,9 +2,9 @@ import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {User} from './user.model';
 
 @model({
-  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty_comment'}}
+  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'user_comment'}}
 })
-export class TreatyComment extends Entity {
+export class UserComment extends Entity {
   @property({
     type: 'number',
     generated: true,
@@ -27,9 +27,9 @@ export class TreatyComment extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  treaty_id: number;
+  user_id: number;
 
   @property({
     type: 'date',
@@ -48,13 +48,13 @@ export class TreatyComment extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<TreatyComment>) {
+  constructor(data?: Partial<UserComment>) {
     super(data);
   }
 }
 
-export interface TreatyCommentRelations {
+export interface UserCommentRelations {
   // describe navigational properties here
 }
 
-export type TreatyCommentWithRelations = TreatyComment & TreatyCommentRelations;
+export type UserCommentWithRelations = UserComment & UserCommentRelations;

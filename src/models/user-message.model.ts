@@ -2,9 +2,9 @@ import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {User} from './user.model';
 
 @model({
-  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty_comment'}}
+  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'user_message'}}
 })
-export class TreatyComment extends Entity {
+export class UserMessage extends Entity {
   @property({
     type: 'number',
     generated: true,
@@ -27,9 +27,9 @@ export class TreatyComment extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  treaty_id: number;
+  user_id: number;
 
   @property({
     type: 'date',
@@ -40,6 +40,15 @@ export class TreatyComment extends Entity {
   })
   create_date: string;
 
+  @property({
+    type: 'number',
+    required: true,
+    precision: 3,
+    scale: 0,
+    mysql: {columnName: 'status', dataType: 'tinyint', dataLength: null, dataPrecision: 3, dataScale: 0, nullable: 'N'},
+  })
+  status: number;
+
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
   // Define well-known properties here
@@ -48,13 +57,13 @@ export class TreatyComment extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<TreatyComment>) {
+  constructor(data?: Partial<UserMessage>) {
     super(data);
   }
 }
 
-export interface TreatyCommentRelations {
+export interface UserMessageRelations {
   // describe navigational properties here
 }
 
-export type TreatyCommentWithRelations = TreatyComment & TreatyCommentRelations;
+export type UserMessageWithRelations = UserMessage & UserMessageRelations;

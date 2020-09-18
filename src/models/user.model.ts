@@ -1,6 +1,8 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Organization} from './organization.model';
 import {UserToOrganization} from './user-to-organization.model';
+import {UserComment} from './user-comment.model';
+import {UserMessage} from './user-message.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'user'}}})
 export class User extends Entity {
@@ -108,6 +110,11 @@ export class User extends Entity {
   @hasMany(() => Organization, {through: {model: () => UserToOrganization, keyFrom: 'creator_user_id', keyTo: 'organization_id'}})
   organizations: Organization[];
 
+  @hasMany(() => UserComment, {keyTo: 'user_id'})
+  comments: UserComment[];
+
+  @hasMany(() => UserMessage, {keyTo: 'user_id'})
+  messages: UserMessage[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

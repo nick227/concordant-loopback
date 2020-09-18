@@ -49,6 +49,7 @@ export class Conflict extends Entity {
     mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
+  
   @property({
     type: 'number',
     required: true,

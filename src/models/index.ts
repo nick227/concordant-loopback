@@ -17,3 +17,5 @@ export * from './provision-like.model';
 export * from './provision-status.model';
 export * from './conflict.model';
 export * from './treaty-status.model';
+export * from './user-comment.model';
+export * from './user-message.model';
