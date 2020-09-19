@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 17, 2020 at 11:33 AM
+-- Generation Time: Sep 19, 2020 at 07:43 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -42,14 +42,15 @@ CREATE TABLE IF NOT EXISTS `conflict` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `organization_a_id` (`organization_a_id`),
   KEY `organization_b_id` (`organization_b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `conflict`
 --
 
 INSERT INTO `conflict` (`id`, `name`, `description`, `avatar_url`, `create_date`, `organization_a_id`, `organization_b_id`, `creator_user_id`) VALUES
-(2, 'Politics', 'get reeee', 'https://images.unsplash.com/photo-1506886009355-7f3af05dd5d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', '2020-09-17 06:06:12', 2, 1, 56);
+(2, 'Politics brochef', 'get reeeeLY HIGH', 'https://images.unsplash.com/photo-1506886009355-7f3af05dd5d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', '2020-09-18 22:22:42', 2, 1, 56),
+(3, 'Battle of Sexes', 'Girls and boys', 'https://images.unsplash.com/photo-1528827383711-2f6b2f082585?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80', '2020-09-18 01:43:08', 5, 6, 56);
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `grievance` (
   KEY `organization_id` (`organization_id`),
   KEY `user_organization_id` (`creator_organization_id`),
   KEY `grievance_ibfk_3` (`conflict_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `grievance`
@@ -80,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `grievance` (
 
 INSERT INTO `grievance` (`id`, `title`, `description`, `conflict_id`, `organization_id`, `creator_user_id`, `create_date`, `creator_organization_id`) VALUES
 (29, 'f sdfsdfsdfvf sdfsdfsdff sdfsdfsdf', 'f sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdff sdfsdfsdf', 2, 1, 56, '2020-09-14 00:00:00', 1),
-(30, 'csc', 'scsc', 2, 1, 56, '2020-09-17 03:47:44', 1);
+(30, 'csc', 'scsc', 2, 1, 56, '2020-09-17 03:47:44', 1),
+(31, 'afds', 'fadsf', 3, 5, 56, '2020-09-18 01:28:45', 5);
 
 -- --------------------------------------------------------
 
@@ -156,14 +158,15 @@ CREATE TABLE IF NOT EXISTS `offer` (
   KEY `organization_id` (`organization_id`),
   KEY `creator_organization_id` (`creator_organization_id`),
   KEY `offer_ibfk_3` (`conflict_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `offer`
 --
 
 INSERT INTO `offer` (`id`, `title`, `description`, `conflict_id`, `organization_id`, `creator_user_id`, `create_date`, `creator_organization_id`) VALUES
-(13, 'fadsfr3r', 'fsr3r', 2, 2, 56, '2020-09-17 04:12:14', 1);
+(13, 'fadsfr3r', 'fsr3r', 2, 2, 56, '2020-09-17 04:12:14', 1),
+(14, 'ytut', 'utyutyu', 3, 6, 56, '2020-09-18 04:23:13', 5);
 
 -- --------------------------------------------------------
 
@@ -180,7 +183,14 @@ CREATE TABLE IF NOT EXISTS `offer_comment` (
   `create_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `offer_id` (`offer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offer_comment`
+--
+
+INSERT INTO `offer_comment` (`id`, `text`, `creator_user_id`, `offer_id`, `create_date`) VALUES
+(4, 'feafa', 56, 13, '2020-09-18 22:33:13');
 
 -- --------------------------------------------------------
 
@@ -258,7 +268,15 @@ CREATE TABLE IF NOT EXISTS `provision_comment` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `provision_id` (`provision_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `provision_comment`
+--
+
+INSERT INTO `provision_comment` (`id`, `text`, `creator_user_id`, `provision_id`, `create_date`) VALUES
+(20, 'sdfgdfg', 56, 24, '2020-09-19 14:24:47'),
+(21, 'fassfasdf', 56, 24, '2020-09-19 14:26:45');
 
 -- --------------------------------------------------------
 
@@ -279,14 +297,17 @@ CREATE TABLE IF NOT EXISTS `provision_like` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `provision_id` (`provision_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `provision_like`
 --
 
 INSERT INTO `provision_like` (`id`, `organization_id`, `creator_user_id`, `provision_id`, `create_date`, `liked`) VALUES
-(4, 2, 56, 13, '2020-09-17 15:56:03', 1);
+(5, 1, 56, 21, '2020-09-18 04:55:05', 1),
+(6, 1, 56, 21, '2020-09-18 04:55:06', 1),
+(7, 1, 56, 24, '2020-09-19 14:24:41', 1),
+(8, 1, 56, 23, '2020-09-19 16:13:34', 1);
 
 -- --------------------------------------------------------
 
@@ -331,14 +352,18 @@ CREATE TABLE IF NOT EXISTS `treaty` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `organization_id` (`organization_id`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `treaty`
 --
 
 INSERT INTO `treaty` (`id`, `name`, `description`, `creator_user_id`, `organization_id`, `conflict_id`, `avatar_url`, `status_id`, `create_date`) VALUES
-(12, 'asdf asdfads', 'a fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa dsa fdsf asd fad sfds fas dfa sdfa ds', 56, 2, 2, 'https://images.unsplash.com/photo-1600277971170-8a7d75fb1bd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80', 1, '2020-09-17 08:45:22');
+(24, 'fasdf', 'fsfs ffsf sffs fsffsfsffsf sffs fsffsfsf fsfsf', 56, 1, 2, 'https://images.unsplash.com/photo-1483911001049-ccd2c8148f9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', 1, '2020-09-19 11:01:26'),
+(26, 'f3f 33', 'fsfs ffsf sffs fsffsfsffsf sffs fsffsfsf fsfsf', 56, 6, 3, 'https://images.unsplash.com/photo-1483911001049-ccd2c8148f9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', 1, '2020-09-19 11:01:26'),
+(27, 'bbbbbb aaa', 'fsfs ffsf sffs fsffsfsffsf sffs fsffsfsf fsfsf', 56, 5, 3, 'https://images.unsplash.com/photo-1483911001049-ccd2c8148f9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', 1, '2020-09-19 11:01:26'),
+(28, 'sheeet', 'fsfs ffsf sffs fsffsfsffsf sffs fsffsfsf fsfsf', 56, 2, 2, 'https://images.unsplash.com/photo-1483911001049-ccd2c8148f9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', 1, '2020-09-19 11:03:10'),
+(29, 'fsr', 'fsfs ffsf sffs fsffsfsffsf sffs fsffsfsf fsfsf', 56, 1, 2, 'https://images.unsplash.com/photo-1483911001049-ccd2c8148f9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', 1, '2020-09-19 11:00:37');
 
 -- --------------------------------------------------------
 
@@ -353,11 +378,17 @@ CREATE TABLE IF NOT EXISTS `treaty_comment` (
   `creator_user_id` int(11) NOT NULL,
   `treaty_id` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
-  `media_url` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `treaty_comment`
+--
+
+INSERT INTO `treaty_comment` (`id`, `text`, `creator_user_id`, `treaty_id`, `create_date`) VALUES
+(1, 'dsfgsg sdf', 56, 29, '2020-09-19 09:35:38');
 
 -- --------------------------------------------------------
 
@@ -378,16 +409,17 @@ CREATE TABLE IF NOT EXISTS `treaty_provision` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `treaty_provision`
 --
 
 INSERT INTO `treaty_provision` (`id`, `treaty_id`, `creator_user_id`, `create_date`, `status_id`, `title`, `description`, `position`) VALUES
-(12, 12, 56, '2020-09-17 09:54:02', 1, '11111 faew fawefaewf', 'faew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewffaew fawefae wf fae w f awe faewf', 1),
-(13, 12, 56, '2020-09-17 09:54:02', 1, '0000 jtyjn tn ntnt', 'jtyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntntj tyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntntjtyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntntjtyjn tn ntnt jty jn tn ntnt jtyjn tn ntn tjt yjn tn ntnt', 0),
-(14, 12, 56, '2020-09-17 15:55:59', 1, 'fsadf adsf', 'asdf adf', 2);
+(21, 24, 56, '2020-09-18 04:54:19', 1, 'will not eat cookies', 'can i get a what what', 0),
+(22, 24, 56, '2020-09-18 04:54:19', 1, 'sssshit prov 2', 'forget about it', 1),
+(23, 28, 56, '2020-09-19 13:37:06', 1, 'eat vag', 'yayay', 0),
+(24, 29, 56, '2020-09-19 13:46:49', 1, 'sdaf', 'sdaff', 0);
 
 -- --------------------------------------------------------
 
@@ -407,7 +439,18 @@ CREATE TABLE IF NOT EXISTS `treaty_rating` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `treaty_rating`
+--
+
+INSERT INTO `treaty_rating` (`id`, `create_date`, `creator_user_id`, `treaty_id`, `value`, `organization_id`) VALUES
+(29, '2020-09-18 09:44:45', 56, 24, 3, 1),
+(30, '2020-09-19 14:24:37', 56, 29, 5, 1),
+(31, '2020-09-19 14:37:59', 56, 29, 2, 1),
+(32, '2020-09-19 15:18:39', 56, 29, 5, 1),
+(33, '2020-09-19 16:13:32', 56, 28, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -501,6 +544,61 @@ INSERT INTO `user` (`id`, `email`, `name`, `biography`, `password`, `type_id`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_comment`
+--
+
+DROP TABLE IF EXISTS `user_comment`;
+CREATE TABLE IF NOT EXISTS `user_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `creator_user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `create_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_comment`
+--
+
+INSERT INTO `user_comment` (`id`, `text`, `creator_user_id`, `user_id`, `create_date`) VALUES
+(1, 'ssse', 56, 56, '2020-09-18 01:16:18'),
+(2, 'sdfgrss', 56, 56, '2020-09-18 01:16:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_message`
+--
+
+DROP TABLE IF EXISTS `user_message`;
+CREATE TABLE IF NOT EXISTS `user_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `creator_user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` tinyint(4) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_message`
+--
+
+INSERT INTO `user_message` (`id`, `text`, `creator_user_id`, `user_id`, `create_date`, `status`) VALUES
+(25, 'fsdfs', 56, 6, '2020-09-18 09:03:10', 1),
+(26, 'sadfadsf asdf', 56, 56, '2020-09-19 08:36:10', 2),
+(28, 'This object defines two properties: page-item and active. Notably, these are the names of the two CSS classes discussed in Step 1. In Step 2, these two class references have become property names in a JavaScript object. The values associated with these property names are JavaScript expressions. If the expression evaluates as truthy, the CSS class will be included. If the expression evaluates to false, the CSS class will not be included. With these rules in mind, let’s look at each property.\r\n\r\nThe first property, page-item, has a value of true. This hard-coded value is used because we always want to include the page-item class. The second property, active, uses a JavaScript expression. When this expression is true, the active class will be applied. This empowers us to conditionally apply the active class based on the value of currentPage. Another way to conditionally apply the active class is by binding to an Array.\r\nBinding using array syntax\r\n\r\nVue lets you apply a list of CSS classes by binding to an Array. If you wanted to use the Array syntax, the HTML shown in Step 1 would become this:', 56, 56, '2020-09-19 08:36:13', 2),
+(29, '\'dsaf efaewf\'', 56, 56, '2020-09-19 04:27:15', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_to_organization`
 --
 
@@ -544,14 +642,23 @@ CREATE TABLE IF NOT EXISTS `vote` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vote`
 --
 
 INSERT INTO `vote` (`id`, `creator_user_id`, `treaty_id`, `organization_id`, `vote_type`, `create_date`) VALUES
-(11, 56, 12, 2, 1, '2020-09-17 16:32:07');
+(12, 56, 24, 1, 1, '2020-09-18 04:54:56'),
+(13, 56, 24, 1, 0, '2020-09-18 04:55:01'),
+(14, 56, 24, 1, 1, '2020-09-18 09:19:59'),
+(15, 56, 29, 1, 1, '2020-09-19 13:56:42'),
+(16, 56, 29, 1, 1, '2020-09-19 14:06:09'),
+(17, 56, 29, 1, 1, '2020-09-19 14:06:56'),
+(18, 56, 28, 2, 1, '2020-09-19 14:09:04'),
+(19, 56, 28, 2, 1, '2020-09-19 14:09:47'),
+(20, 56, 28, 2, 0, '2020-09-19 14:15:56'),
+(21, 56, 29, 1, 0, '2020-09-19 14:24:29');
 
 --
 -- Constraints for dumped tables
@@ -662,6 +769,20 @@ ALTER TABLE `treaty_rating`
   ADD CONSTRAINT `treaty_rating_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `treaty_rating_ibfk_2` FOREIGN KEY (`treaty_id`) REFERENCES `treaty` (`id`),
   ADD CONSTRAINT `treaty_rating_ibfk_3` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`);
+
+--
+-- Constraints for table `user_comment`
+--
+ALTER TABLE `user_comment`
+  ADD CONSTRAINT `user_comment_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `user_comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `user_message`
+--
+ALTER TABLE `user_message`
+  ADD CONSTRAINT `user_message_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `user_message_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `user_to_organization`
