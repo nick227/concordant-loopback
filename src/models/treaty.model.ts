@@ -36,7 +36,7 @@ export class Treaty extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
     length: 255,
     mysql: {columnName: 'avatar_url', dataType: 'varchar', dataLength: 128, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
