@@ -60,3 +60,4 @@ export * from './conflict-debate.controller';
 export * from './debate-comment-debate.controller';
 export * from './debate-debate-comment.controller';
 export * from './debate-comment-user.controller';
+export * from './debate-organization.controller';

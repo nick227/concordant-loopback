@@ -2,6 +2,7 @@ import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository'
 import {User} from './user.model';
 import {Conflict} from './conflict.model';
 import {DebateComment} from './debate-comment.model';
+import {Organization} from './organization.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'debate'}}})
 export class Debate extends Entity {
@@ -31,7 +32,6 @@ export class Debate extends Entity {
     mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   description: string;
-
   @property({
     type: 'string',
     required: false,
@@ -48,7 +48,7 @@ export class Debate extends Entity {
     mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
-  
+
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
 
@@ -57,6 +57,9 @@ export class Debate extends Entity {
 
   @hasMany(() => DebateComment, {keyTo: 'debate_id'})
   comments: DebateComment[];
+
+  @belongsTo(() => Organization, {name: 'organization'})
+  creator_organization_id: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
