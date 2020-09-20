@@ -23,6 +23,23 @@ export class Debate extends Entity {
   })
   title: string;
 
+  name: string;
+  @property({
+    type: 'string',
+    required: true,
+    length: 65535,
+    mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  description: string;
+
+  @property({
+    type: 'string',
+    required: false,
+    length: 255,
+    mysql: {columnName: 'avatar_url', dataType: 'varchar', dataLength: 128, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  avatar_url: string;
+
   @property({
     type: 'date',
     required: false,
@@ -31,6 +48,7 @@ export class Debate extends Entity {
     mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
+  
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
 
