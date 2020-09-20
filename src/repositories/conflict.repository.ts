@@ -1,10 +1,11 @@
 import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory} from '@loopback/repository';
-import {Conflict, ConflictRelations, Organization, Grievance, Offer} from '../models';
+import {Conflict, ConflictRelations, Organization, Grievance, Offer, Debate} from '../models';
 import {ConcordantDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {OrganizationRepository} from './organization.repository';
 import {GrievanceRepository} from './grievance.repository';
 import {OfferRepository} from './offer.repository';
+import {DebateRepository} from './debate.repository';
 
 export class ConflictRepository extends DefaultCrudRepository<
   Conflict,
@@ -20,10 +21,14 @@ export class ConflictRepository extends DefaultCrudRepository<
 
   public readonly offers: HasManyRepositoryFactory<Offer, typeof Conflict.prototype.id>;
 
+  public readonly debates: HasManyRepositoryFactory<Debate, typeof Conflict.prototype.id>;
+
   constructor(
-    @inject('datasources.concordant') dataSource: ConcordantDataSource, @repository.getter('OrganizationRepository') protected organizationRepositoryGetter: Getter<OrganizationRepository>, @repository.getter('GrievanceRepository') protected grievanceRepositoryGetter: Getter<GrievanceRepository>, @repository.getter('OfferRepository') protected offerRepositoryGetter: Getter<OfferRepository>,
+    @inject('datasources.concordant') dataSource: ConcordantDataSource, @repository.getter('OrganizationRepository') protected organizationRepositoryGetter: Getter<OrganizationRepository>, @repository.getter('GrievanceRepository') protected grievanceRepositoryGetter: Getter<GrievanceRepository>, @repository.getter('OfferRepository') protected offerRepositoryGetter: Getter<OfferRepository>, @repository.getter('DebateRepository') protected debateRepositoryGetter: Getter<DebateRepository>,
   ) {
     super(Conflict, dataSource);
+    this.debates = this.createHasManyRepositoryFactoryFor('debates', debateRepositoryGetter,);
+    this.registerInclusionResolver('debates', this.debates.inclusionResolver);
     this.offers = this.createHasManyRepositoryFactoryFor('offers', offerRepositoryGetter,);
     this.registerInclusionResolver('offers', this.offers.inclusionResolver);
     this.grievances = this.createHasManyRepositoryFactoryFor('grievances', grievanceRepositoryGetter,);

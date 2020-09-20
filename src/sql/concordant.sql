@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 19, 2020 at 07:43 PM
+-- Generation Time: Sep 20, 2020 at 09:30 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -51,6 +51,44 @@ CREATE TABLE IF NOT EXISTS `conflict` (
 INSERT INTO `conflict` (`id`, `name`, `description`, `avatar_url`, `create_date`, `organization_a_id`, `organization_b_id`, `creator_user_id`) VALUES
 (2, 'Politics brochef', 'get reeeeLY HIGH', 'https://images.unsplash.com/photo-1506886009355-7f3af05dd5d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60', '2020-09-18 22:22:42', 2, 1, 56),
 (3, 'Battle of Sexes', 'Girls and boys', 'https://images.unsplash.com/photo-1528827383711-2f6b2f082585?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80', '2020-09-18 01:43:08', 5, 6, 56);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `debate`
+--
+
+DROP TABLE IF EXISTS `debate`;
+CREATE TABLE IF NOT EXISTS `debate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `creator_user_id` int(11) NOT NULL,
+  `conflict_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `conflict_id` (`conflict_id`),
+  KEY `creator_user_id` (`creator_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `debate_comment`
+--
+
+DROP TABLE IF EXISTS `debate_comment`;
+CREATE TABLE IF NOT EXISTS `debate_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `creator_user_id` int(11) NOT NULL,
+  `debate_id` int(11) NOT NULL,
+  `parent_comment_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `debate_id` (`debate_id`),
+  KEY `parent_comment_id` (`parent_comment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -268,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `provision_comment` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `provision_id` (`provision_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `provision_comment`
@@ -276,7 +314,8 @@ CREATE TABLE IF NOT EXISTS `provision_comment` (
 
 INSERT INTO `provision_comment` (`id`, `text`, `creator_user_id`, `provision_id`, `create_date`) VALUES
 (20, 'sdfgdfg', 56, 24, '2020-09-19 14:24:47'),
-(21, 'fassfasdf', 56, 24, '2020-09-19 14:26:45');
+(21, 'fassfasdf', 56, 24, '2020-09-19 14:26:45'),
+(22, 'sadfasdf ', 56, 23, '2020-09-20 11:22:45');
 
 -- --------------------------------------------------------
 
@@ -297,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `provision_like` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `provision_id` (`provision_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `provision_like`
@@ -307,7 +346,10 @@ INSERT INTO `provision_like` (`id`, `organization_id`, `creator_user_id`, `provi
 (5, 1, 56, 21, '2020-09-18 04:55:05', 1),
 (6, 1, 56, 21, '2020-09-18 04:55:06', 1),
 (7, 1, 56, 24, '2020-09-19 14:24:41', 1),
-(8, 1, 56, 23, '2020-09-19 16:13:34', 1);
+(8, 1, 56, 23, '2020-09-19 16:13:34', 1),
+(9, 1, 56, 21, '2020-09-20 10:19:21', 0),
+(10, 1, 56, 23, '2020-09-20 10:59:14', 0),
+(11, 1, 56, 23, '2020-09-20 11:22:38', 0);
 
 -- --------------------------------------------------------
 
@@ -409,17 +451,19 @@ CREATE TABLE IF NOT EXISTS `treaty_provision` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `treaty_provision`
 --
 
 INSERT INTO `treaty_provision` (`id`, `treaty_id`, `creator_user_id`, `create_date`, `status_id`, `title`, `description`, `position`) VALUES
-(21, 24, 56, '2020-09-18 04:54:19', 1, 'will not eat cookies', 'can i get a what what', 0),
+(21, 24, 56, '2020-09-20 05:57:37', 1, 'what theyyyy', 'can i get a what what', 0),
 (22, 24, 56, '2020-09-18 04:54:19', 1, 'sssshit prov 2', 'forget about it', 1),
-(23, 28, 56, '2020-09-19 13:37:06', 1, 'eat vag', 'yayay', 0),
-(24, 29, 56, '2020-09-19 13:46:49', 1, 'sdaf', 'sdaff', 0);
+(23, 28, 56, '2020-09-20 05:58:45', 1, 'eat vagina hot', 'yayay with mustard', 0),
+(24, 29, 56, '2020-09-19 13:46:49', 1, 'sdaf', 'sdaff', 0),
+(25, 24, 56, '2020-09-20 10:20:45', 1, 'ffef', 'fefef', 2),
+(26, 28, 56, '2020-09-20 11:22:58', 1, 'fsasdf', 'asdfas df', 1);
 
 -- --------------------------------------------------------
 
@@ -439,7 +483,7 @@ CREATE TABLE IF NOT EXISTS `treaty_rating` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `treaty_rating`
@@ -450,7 +494,11 @@ INSERT INTO `treaty_rating` (`id`, `create_date`, `creator_user_id`, `treaty_id`
 (30, '2020-09-19 14:24:37', 56, 29, 5, 1),
 (31, '2020-09-19 14:37:59', 56, 29, 2, 1),
 (32, '2020-09-19 15:18:39', 56, 29, 5, 1),
-(33, '2020-09-19 16:13:32', 56, 28, 5, 1);
+(33, '2020-09-19 16:13:32', 56, 28, 5, 1),
+(34, '2020-09-20 09:48:06', 56, 28, 5, 1),
+(35, '2020-09-20 09:48:36', 56, 28, 1, 1),
+(36, '2020-09-20 09:48:40', 56, 28, 1, 1),
+(37, '2020-09-20 10:20:34', 56, 24, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -557,7 +605,7 @@ CREATE TABLE IF NOT EXISTS `user_comment` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_comment`
@@ -565,7 +613,15 @@ CREATE TABLE IF NOT EXISTS `user_comment` (
 
 INSERT INTO `user_comment` (`id`, `text`, `creator_user_id`, `user_id`, `create_date`) VALUES
 (1, 'ssse', 56, 56, '2020-09-18 01:16:18'),
-(2, 'sdfgrss', 56, 56, '2020-09-18 01:16:35');
+(2, 'sdfgrss', 56, 56, '2020-09-18 01:16:35'),
+(3, 'https://www.youtube.com/watch?v=roY76m_oWps&ab_channel=BevelTGR', 56, 4, '2020-09-20 06:30:06'),
+(4, 'fs', 56, 4, '2020-09-20 08:04:36'),
+(5, 'https://www.youtube.com/watch?v=roY76m_oWps&ab_channel=BevelTGR', 56, 4, '2020-09-20 08:34:30'),
+(6, 'https://www.youtube.com/watch?v=eR0KbN76viI&ab_channel=PokerStars', 56, 5, '2020-09-20 08:38:47'),
+(7, 'fsfefe', 56, 5, '2020-09-20 08:39:05'),
+(8, 'https://www.yofsutube.com/watch?v=roY76m_oWps&ab_channel=BevelTGR', 56, 5, '2020-09-20 08:45:52'),
+(9, 'https://www.youtube.com/watch?v=roY76m_oWps&ab_channel=BevelTGR', 56, 5, '2020-09-20 08:45:58'),
+(10, 'https://www.youtube.com/watch?v=roY76m_oWps&ab_channel=BevelTGR', 56, 56, '2020-09-20 08:47:48');
 
 -- --------------------------------------------------------
 
@@ -584,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `user_message` (
   PRIMARY KEY (`id`),
   KEY `creator_user_id` (`creator_user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_message`
@@ -592,9 +648,10 @@ CREATE TABLE IF NOT EXISTS `user_message` (
 
 INSERT INTO `user_message` (`id`, `text`, `creator_user_id`, `user_id`, `create_date`, `status`) VALUES
 (25, 'fsdfs', 56, 6, '2020-09-18 09:03:10', 1),
-(26, 'sadfadsf asdf', 56, 56, '2020-09-19 08:36:10', 2),
-(28, 'This object defines two properties: page-item and active. Notably, these are the names of the two CSS classes discussed in Step 1. In Step 2, these two class references have become property names in a JavaScript object. The values associated with these property names are JavaScript expressions. If the expression evaluates as truthy, the CSS class will be included. If the expression evaluates to false, the CSS class will not be included. With these rules in mind, let’s look at each property.\r\n\r\nThe first property, page-item, has a value of true. This hard-coded value is used because we always want to include the page-item class. The second property, active, uses a JavaScript expression. When this expression is true, the active class will be applied. This empowers us to conditionally apply the active class based on the value of currentPage. Another way to conditionally apply the active class is by binding to an Array.\r\nBinding using array syntax\r\n\r\nVue lets you apply a list of CSS classes by binding to an Array. If you wanted to use the Array syntax, the HTML shown in Step 1 would become this:', 56, 56, '2020-09-19 08:36:13', 2),
-(29, '\'dsaf efaewf\'', 56, 56, '2020-09-19 04:27:15', 2);
+(26, 'sadfadsf asdf', 56, 56, '2020-09-20 09:03:44', 1),
+(28, 'This object defines two properties: page-item and active. Notably, these are the names of the two CSS classes discussed in Step 1. In Step 2, these two class references have become property names in a JavaScript object. The values associated with these property names are JavaScript expressions. If the expression evaluates as truthy, the CSS class will be included. If the expression evaluates to false, the CSS class will not be included. With these rules in mind, let’s look at each property.\r\n\r\nThe first property, page-item, has a value of true. This hard-coded value is used because we always want to include the page-item class. The second property, active, uses a JavaScript expression. When this expression is true, the active class will be applied. This empowers us to conditionally apply the active class based on the value of currentPage. Another way to conditionally apply the active class is by binding to an Array.\r\nBinding using array syntax\r\n\r\nVue lets you apply a list of CSS classes by binding to an Array. If you wanted to use the Array syntax, the HTML shown in Step 1 would become this:', 56, 56, '2020-09-20 09:03:44', 1),
+(29, '\'dsaf efaewf\'', 56, 56, '2020-09-20 09:03:44', 1),
+(30, '\'fsd\'', 56, 56, '2020-09-20 09:03:44', 1);
 
 -- --------------------------------------------------------
 
@@ -642,7 +699,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
   KEY `creator_user_id` (`creator_user_id`),
   KEY `treaty_id` (`treaty_id`),
   KEY `organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vote`
@@ -658,7 +715,10 @@ INSERT INTO `vote` (`id`, `creator_user_id`, `treaty_id`, `organization_id`, `vo
 (18, 56, 28, 2, 1, '2020-09-19 14:09:04'),
 (19, 56, 28, 2, 1, '2020-09-19 14:09:47'),
 (20, 56, 28, 2, 0, '2020-09-19 14:15:56'),
-(21, 56, 29, 1, 0, '2020-09-19 14:24:29');
+(21, 56, 29, 1, 0, '2020-09-19 14:24:29'),
+(22, 56, 28, 1, 1, '2020-09-20 05:52:22'),
+(23, 56, 24, 1, 1, '2020-09-20 10:20:37'),
+(24, 56, 28, 1, 1, '2020-09-20 11:01:47');
 
 --
 -- Constraints for dumped tables
@@ -671,6 +731,21 @@ ALTER TABLE `conflict`
   ADD CONSTRAINT `conflict_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `conflict_ibfk_2` FOREIGN KEY (`organization_a_id`) REFERENCES `organization` (`id`),
   ADD CONSTRAINT `conflict_ibfk_3` FOREIGN KEY (`organization_b_id`) REFERENCES `organization` (`id`);
+
+--
+-- Constraints for table `debate`
+--
+ALTER TABLE `debate`
+  ADD CONSTRAINT `debate_ibfk_1` FOREIGN KEY (`conflict_id`) REFERENCES `conflict` (`id`),
+  ADD CONSTRAINT `debate_ibfk_2` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `debate_comment`
+--
+ALTER TABLE `debate_comment`
+  ADD CONSTRAINT `debate_comment_ibfk_1` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `debate_comment_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`),
+  ADD CONSTRAINT `debate_comment_ibfk_3` FOREIGN KEY (`parent_comment_id`) REFERENCES `debate_comment` (`id`);
 
 --
 -- Constraints for table `grievance`

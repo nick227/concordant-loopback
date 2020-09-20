@@ -2,6 +2,7 @@ import {Entity, model, property, hasMany, belongsTo, hasOne} from '@loopback/rep
 import {Grievance} from './grievance.model';
 import {Offer} from './offer.model';
 import {Organization} from './organization.model';
+import {Debate} from './debate.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'conflict'}}
@@ -70,6 +71,9 @@ export class Conflict extends Entity {
 
   @hasMany(() => Offer, {keyTo: 'conflict_id'})
   offers: Offer[];
+
+  @hasMany(() => Debate, {keyTo: 'conflict_id'})
+  debates: Debate[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
