@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 20, 2020 at 09:30 AM
+-- Generation Time: Sep 20, 2020 at 10:22 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -64,10 +64,14 @@ CREATE TABLE IF NOT EXISTS `debate` (
   `title` varchar(255) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `creator_user_id` int(11) NOT NULL,
+  `creator_organization_id` int(11) NOT NULL,
   `conflict_id` int(11) NOT NULL,
+  `avatar_url` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `conflict_id` (`conflict_id`),
-  KEY `creator_user_id` (`creator_user_id`)
+  KEY `creator_user_id` (`creator_user_id`),
+  KEY `creator_organization_id` (`creator_organization_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -737,7 +741,8 @@ ALTER TABLE `conflict`
 --
 ALTER TABLE `debate`
   ADD CONSTRAINT `debate_ibfk_1` FOREIGN KEY (`conflict_id`) REFERENCES `conflict` (`id`),
-  ADD CONSTRAINT `debate_ibfk_2` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `debate_ibfk_2` FOREIGN KEY (`creator_user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `debate_ibfk_3` FOREIGN KEY (`creator_organization_id`) REFERENCES `organization` (`id`);
 
 --
 -- Constraints for table `debate_comment`
