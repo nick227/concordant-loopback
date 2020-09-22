@@ -21,3 +21,4 @@ export * from './user-comment.model';
 export * from './user-message.model';
 export * from './debate.model';
 export * from './debate-comment.model';
+export * from './debate-comment-like.model';

@@ -21,3 +21,4 @@ export * from './user-comment.repository';
 export * from './user-message.repository';
 export * from './debate-comment.repository';
 export * from './debate.repository';
+export * from './debate-comment-like.repository';

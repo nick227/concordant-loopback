@@ -1,6 +1,7 @@
 import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Debate} from './debate.model';
 import {User} from './user.model';
+import {DebateCommentLike} from './debate-comment-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'debate_comment'}}
@@ -23,6 +24,7 @@ export class DebateComment extends Entity {
     mysql: {columnName: 'text', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   text: string;
+
   @property({
     type: 'date',
     required: false,
@@ -31,12 +33,15 @@ export class DebateComment extends Entity {
     mysql: {columnName: 'create_date', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   create_date: string;
+
   @property({
     type: 'number',
-    required: true,
+    required: false,
     precision: 10,
+    default: 'null',
+    nullable: true,
     scale: 0,
-    mysql: {columnName: 'parent_comment_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'parent_comment_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y'},
   })
   parent_comment_id: number;
 
@@ -45,6 +50,9 @@ export class DebateComment extends Entity {
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @hasMany(() => DebateCommentLike, {keyTo: 'debate_comment_id'})
+  likes: DebateCommentLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
