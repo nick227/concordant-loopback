@@ -6,6 +6,7 @@ import {Organization} from './organization.model';
 import {Conflict} from './conflict.model';
 import {TreatyStatus} from './treaty-status.model';
 import {TreatyRating} from './treaty-rating.model';
+import {TreatyProvision} from './treaty-provision.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty'}}})
 export class Treaty extends Entity {
@@ -71,6 +72,9 @@ export class Treaty extends Entity {
 
   @hasMany(() => TreatyRating, {keyTo: 'treaty_id'})
   ratings: TreatyRating[];
+
+  @hasMany(() => TreatyProvision, {keyTo: 'treaty_id'})
+  provisions: TreatyProvision[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

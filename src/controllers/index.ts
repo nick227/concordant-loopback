@@ -63,3 +63,4 @@ export * from './debate-comment-user.controller';
 export * from './debate-organization.controller';
 export * from './debate-comment-like.controller';
 export * from './debate-comment-debate-comment-like.controller';
+export * from './treaty-treaty-provision.controller';

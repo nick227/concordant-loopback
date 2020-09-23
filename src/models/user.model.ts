@@ -74,15 +74,6 @@ export class User extends Entity {
     type: 'string',
     required: false,
     default: '',
-    length: 32,
-    mysql: {columnName: 'password', dataType: 'char', dataLength: 32, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  password: string;
-
-  @property({
-    type: 'string',
-    required: false,
-    default: '',
     length: 255,
     mysql: {columnName: 'profile_background_url', dataType: 'char', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
