@@ -1,5 +1,6 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {User} from './user.model';
+import {ProvisionCommentLike} from './provision-comment-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'provision_comment'}}
@@ -42,6 +43,9 @@ export class ProvisionComment extends Entity {
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @hasMany(() => ProvisionCommentLike, {keyTo: 'provision_comment_id'})
+  likes: ProvisionCommentLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
