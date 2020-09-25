@@ -1,5 +1,6 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {User} from './user.model';
+import {OfferCommentLike} from './offer-comment-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'offer_comment'}}
@@ -22,6 +23,7 @@ export class OfferComment extends Entity {
     mysql: {columnName: 'text', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   text: string;
+  
   @property({
     type: 'number',
     required: true,
@@ -42,6 +44,9 @@ export class OfferComment extends Entity {
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @hasMany(() => OfferCommentLike, {keyTo: 'offer_comment_id'})
+  likes: OfferCommentLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

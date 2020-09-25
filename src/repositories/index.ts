@@ -24,3 +24,6 @@ export * from './debate.repository';
 export * from './debate-comment-like.repository';
 export * from './provision-comment-like.repository';
 export * from './user-comment-like.repository';
+export * from './treaty-comment-like.repository';
+export * from './grievance-comment-like.repository';
+export * from './offer-comment-like.repository';

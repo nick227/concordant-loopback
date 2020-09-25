@@ -1,5 +1,6 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {User} from './user.model';
+import {TreatyCommentLike} from './treaty-comment-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty_comment'}}
@@ -42,6 +43,9 @@ export class TreatyComment extends Entity {
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @hasMany(() => TreatyCommentLike, {keyTo: 'treaty_comment_id'})
+  likes: TreatyCommentLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

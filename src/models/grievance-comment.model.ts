@@ -1,5 +1,6 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {User} from './user.model';
+import {GrievanceCommentLike} from './grievance-comment-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'grievance_comment'}}
@@ -43,6 +44,9 @@ export class GrievanceComment extends Entity {
 
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
+
+  @hasMany(() => GrievanceCommentLike, {keyTo: 'grievance_comment_id'})
+  likes: GrievanceCommentLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
