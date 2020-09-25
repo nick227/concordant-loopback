@@ -5,11 +5,11 @@ const config = {
   name: 'concordant',
   connector: 'mysql',
   url: '',
-  host: 'localhost',
+  host: 'ao9moanwus0rjiex.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   port: 3306,
-  user: 'root',
-  password: '',
-  database: 'concordant'
+  user: 'nue7ziqto836v7fu',
+  password: 'rgm3l2hvlfojzwby',
+  database: 'ug201y5gdut1hzgx'
 };
 
 // Observe application's life cycle to disconnect the datasource when
