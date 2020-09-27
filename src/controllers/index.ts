@@ -74,3 +74,8 @@ export * from './offer-comment-like.controller';
 export * from './grievance-comment-like.controller';
 export * from './grievance-comment-grievance-comment-like.controller';
 export * from './offer-comment-offer-comment-like.controller';
+export * from './grievance-grievance-like.controller';
+export * from './offer-offer-like.controller';
+export * from './offer-like-user.controller';
+export * from './grievance-like-organization.controller';
+export * from './offer-like-organization.controller';

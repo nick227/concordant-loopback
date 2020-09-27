@@ -2,6 +2,7 @@ import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/rep
 import {User} from './user.model';
 import {OfferComment} from './offer-comment.model';
 import {Organization} from './organization.model';
+import {OfferLike} from './offer-like.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'offer'}}})
 export class Offer extends Entity {
@@ -18,18 +19,10 @@ export class Offer extends Entity {
   @property({
     type: 'string',
     required: true,
-    length: 255,
-    mysql: {columnName: 'title', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
+    length: 100,
+    mysql: {columnName: 'title', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   title: string;
-
-  @property({
-    type: 'string',
-    required: true,
-    length: 65535,
-    mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  description: string;
 
   @property({
     type: 'number',
@@ -66,7 +59,9 @@ export class Offer extends Entity {
 
   @belongsTo(() => Organization, {name: 'organization'})
   organization_id: number;
-  
+
+  @hasMany(() => OfferLike, {keyTo: 'offer_id'})
+  likes: OfferLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

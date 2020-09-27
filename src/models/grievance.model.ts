@@ -3,6 +3,7 @@ import {Conflict, ConflictWithRelations} from './conflict.model';
 import {User} from './user.model';
 import {GrievanceComment} from './grievance-comment.model';
 import {Organization} from './organization.model';
+import {GrievanceLike} from './grievance-like.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'grievance'}}
@@ -21,18 +22,10 @@ export class Grievance extends Entity {
   @property({
     type: 'string',
     required: true,
-    length: 255,
-    mysql: {columnName: 'title', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'N'},
+    length: 100,
+    mysql: {columnName: 'title', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   title: string;
-
-  @property({
-    type: 'string',
-    required: true,
-    length: 65535,
-    mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  description: string;
 
   @property({
     type: 'number',
@@ -69,7 +62,9 @@ export class Grievance extends Entity {
 
   @belongsTo(() => Organization, {name: 'organization'})
   organization_id: number;
-  
+
+  @hasMany(() => GrievanceLike, {keyTo: 'grievance_id'})
+  likes: GrievanceLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
