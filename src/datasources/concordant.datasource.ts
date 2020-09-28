@@ -1,6 +1,7 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
+/* HEROKU SETTINGS 
 const config = {
   name: 'concordant',
   connector: 'mysql',
@@ -11,7 +12,7 @@ const config = {
   password: '',
   database: 'concordant'
 };
-/* HEROKU SETTINGS 
+*/
 const config = {
   name: 'concordant',
   connector: 'mysql',
@@ -22,7 +23,6 @@ const config = {
   password: 'rgm3l2hvlfojzwby',
   database: 'ug201y5gdut1hzgx'
 };
-*/
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
