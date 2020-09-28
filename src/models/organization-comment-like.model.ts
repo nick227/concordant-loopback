@@ -25,7 +25,6 @@ export class OrganizationCommentLike extends Entity {
     mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   organization_id: number;
-
   @property({
     type: 'number',
     required: true,
@@ -34,7 +33,6 @@ export class OrganizationCommentLike extends Entity {
     mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   creator_user_id: number;
-
   @property({
     type: 'number',
     required: true,
