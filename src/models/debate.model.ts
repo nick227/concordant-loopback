@@ -32,6 +32,7 @@ export class Debate extends Entity {
     mysql: {columnName: 'description', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
   description: string;
+  
   @property({
     type: 'string',
     required: false,

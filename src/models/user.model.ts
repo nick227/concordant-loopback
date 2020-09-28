@@ -3,6 +3,7 @@ import {Organization} from './organization.model';
 import {UserToOrganization} from './user-to-organization.model';
 import {UserComment} from './user-comment.model';
 import {UserMessage} from './user-message.model';
+import {Treaty} from './treaty.model';
 
 @model({settings: {idInjection: false, mysql: {schema: 'concordant', table: 'user'}}})
 export class User extends Entity {
@@ -106,6 +107,9 @@ export class User extends Entity {
 
   @hasMany(() => UserMessage, {keyTo: 'user_id'})
   messages: UserMessage[];
+
+  @hasMany(() => Treaty, {keyTo: 'creator_user_id'})
+  treaties: Treaty[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

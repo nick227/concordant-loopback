@@ -2,6 +2,7 @@ import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository'
 import {User} from './user.model';
 import {UserToOrganization} from './user-to-organization.model';
 import {Treaty} from './treaty.model';
+import {OrganizationComment} from './organization-comment.model';
 
 @model({
   settings: {idInjection: false, mysql: {schema: 'concordant', table: 'organization'}}
@@ -56,6 +57,8 @@ export class Organization extends Entity {
   @hasMany(() => User, {through: {model: () => UserToOrganization, keyFrom: 'organization_id', keyTo: 'creator_user_id'}})
   users: User[];
 
+  @hasMany(() => OrganizationComment, {keyTo: 'organization_id'})
+  comments: OrganizationComment[];
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
