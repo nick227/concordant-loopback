@@ -19,15 +19,6 @@ export class ActivityLike extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  organization_id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
     mysql: {columnName: 'creator_user_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   creator_user_id: number;
