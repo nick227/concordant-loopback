@@ -33,3 +33,7 @@ export * from './activity-comment.repository';
 export * from './activity-like.repository';
 export * from './organization-comment-like.repository';
 export * from './organization-comment.repository';
+export * from './activity-emotion.repository';
+export * from './organization-chat.repository';
+export * from './achievement-type.repository';
+export * from './user-achievement.repository';

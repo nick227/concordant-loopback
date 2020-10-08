@@ -1,11 +1,10 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {User} from './user.model';
-import {TreatyCommentLike} from './treaty-comment-like.model';
 
 @model({
-  settings: {idInjection: false, mysql: {schema: 'concordant', table: 'treaty_comment'}}
+  settings: {idInjection: false, mysql: {schema: 'concordant2', table: 'organization_chat'}}
 })
-export class TreatyComment extends Entity {
+export class OrganizationChat extends Entity {
   @property({
     type: 'number',
     generated: true,
@@ -15,23 +14,13 @@ export class TreatyComment extends Entity {
     mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   id: number;
-
   @property({
     type: 'string',
     required: true,
     length: 65535,
-    mysql: {columnName: 'text', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'message', dataType: 'text', dataLength: 65535, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  text: string;
-  
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'treaty_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  treaty_id: number;
+  message: string;
 
   @property({
     type: 'date',
@@ -42,24 +31,30 @@ export class TreatyComment extends Entity {
   })
   create_date: string;
 
+  @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'organization_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+  })
+  organization_id: number;
+
   @belongsTo(() => User, {name: 'creator'})
   creator_user_id: number;
-
-  @hasMany(() => TreatyCommentLike, {keyTo: 'treaty_comment_id'})
-  likes: TreatyCommentLike[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<TreatyComment>) {
+  constructor(data?: Partial<OrganizationChat>) {
     super(data);
   }
 }
 
-export interface TreatyCommentRelations {
+export interface OrganizationChatRelations {
   // describe navigational properties here
 }
 
-export type TreatyCommentWithRelations = TreatyComment & TreatyCommentRelations;
+export type OrganizationChatWithRelations = OrganizationChat & OrganizationChatRelations;

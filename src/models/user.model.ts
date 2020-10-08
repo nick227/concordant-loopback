@@ -81,16 +81,6 @@ export class User extends Entity {
   profile_background_url: string;
 
   @property({
-    type: 'number',
-    required: false,
-    default: '',
-    precision: 10,
-    scale: 0,
-    mysql: {columnName: 'type_id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  type_id: number;
-
-  @property({
     type: 'string',
     required: false,
     default: '',

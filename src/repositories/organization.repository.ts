@@ -22,7 +22,10 @@ export class OrganizationRepository extends DefaultCrudRepository<
   public readonly comments: HasManyRepositoryFactory<OrganizationComment, typeof Organization.prototype.id>;
 
   constructor(
-    @inject('datasources.concordant') dataSource: ConcordantDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('UserToOrganizationRepository') protected userToOrganizationRepositoryGetter: Getter<UserToOrganizationRepository>, @repository.getter('OrganizationCommentRepository') protected organizationCommentRepositoryGetter: Getter<OrganizationCommentRepository>,
+    @inject('datasources.concordant') dataSource: ConcordantDataSource, 
+    @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, 
+    @repository.getter('UserToOrganizationRepository') protected userToOrganizationRepositoryGetter: Getter<UserToOrganizationRepository>, 
+    @repository.getter('OrganizationCommentRepository') protected organizationCommentRepositoryGetter: Getter<OrganizationCommentRepository>,
   ) {
     super(Organization, dataSource);
     this.comments = this.createHasManyRepositoryFactoryFor('comments', organizationCommentRepositoryGetter,);

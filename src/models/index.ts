@@ -34,3 +34,7 @@ export * from './activity-like.model';
 export * from './organization.model';
 export * from './organization-comment.model';
 export * from './organization-comment-like.model';
+export * from './activity-emotion.model';
+export * from './organization-chat.model';
+export * from './achievement-type.model';
+export * from './user-achievement.model';
